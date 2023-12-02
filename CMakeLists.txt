@@ -12,7 +12,7 @@ set(BIBLIOTEKI_DIR ${CMAKE_SOURCE_DIR/biblioteki})
 set(SOURCES
         Adres.cpp
         Czytelnik.cpp
-        gui.cpp
+#        gui.cpp
         katalog.cpp
         ksiazka.cpp
         main.cpp
@@ -26,7 +26,7 @@ set(SOURCES
 set(HEADERS
         Adres.h
         Czytelnik.h
-        gui.h
+#        gui.h
         katalog.h
         ksiazka.h
         RejestrCzytelnikow.h
