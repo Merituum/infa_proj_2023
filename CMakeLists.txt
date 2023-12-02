@@ -29,7 +29,7 @@ set(HEADERS
 )
 
 #pliki wykonywawcze
-add_executable(infa_proj_2023 $(SOURCES) $(HEADERS))
+add_executable(infa_proj_2023 ${SOURCES} ${HEADERS})
 
 #ustawienia sciezek include - nie wiem czy to potrzebne
 include_directories(${CMAKE_SOURCE_DIR})
