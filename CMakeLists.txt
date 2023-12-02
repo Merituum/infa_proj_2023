@@ -3,6 +3,11 @@ project(infa_proj_2023)
 
 set(CMAKE_CXX_STANDARD 17)
 
+#sciezka z bibliotekami
+set(BIBLIOTEKI_DIR ${CMAKE_SOURCE_DIR/biblioteki})
+
+
+
 #pliki .cpp
 set(SOURCES
         Adres.cpp
