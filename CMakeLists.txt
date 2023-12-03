@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 #sciezka z bibliotekami
 set(BIBLIOTEKI_DIR ${CMAKE_SOURCE_DIR/biblioteki})
+set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:./biblioteki/pkg-config-lite-0.28-1")
+
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GTK3 REQUIRED gtk+-3.0)
 
 
 
@@ -35,10 +39,11 @@ set(HEADERS
 
 #pliki wykonywawcze
 add_executable(infa_proj_2023 ${SOURCES} ${HEADERS})
-
+target_link_libraries(infa_proj_2023 ${GTK3_LIBRARIES})
 #ustawienia sciezek include - nie wiem czy to potrzebne
 include_directories(${CMAKE_SOURCE_DIR})
-
+include_directories(${GTK3_INCLUDE_DIRS})
+link_directories(${GTK_3_LIBRARY_DIRS})
 #add_executable(infa_proj_2023 main.cpp
 #        Czytelnik.cpp
 #        Czytelnik.h

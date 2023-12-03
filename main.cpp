@@ -3,6 +3,7 @@
 using namespace std;
 #include <locale.h>
 #include "gui.h"
+
 int main() {
     setlocale(LC_CTYPE, "Polish");
     Katalog katalog;
