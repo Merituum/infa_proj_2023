@@ -7,6 +7,9 @@ bool RejestrCzytelnikow::czyCzytelnikZarejestrowany(const std::string& ID) const
     }
     return false; // Czytelnik niezarejestrowany
 }
+bool RejestrCzytelnikow::czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID) {
+    return czytelnik.pobierzID() == ID;
+}
 
 void RejestrCzytelnikow::zarejestrujCzytelnika(const Czytelnik& czytelnik) {
     if (!czyCzytelnikZarejestrowany(czytelnik.pobierzID())) {
@@ -68,7 +71,8 @@ void RejestrCzytelnikow::wczytajZPliku(const std::string& nazwaPliku) {
         while (!plikWejsciowy.eof()) {
             std::string id, imie, nazwisko, ulica, numerDomu, miasto, kodPocztowy;
             plikWejsciowy >> id >> imie >> nazwisko >> ulica >> kodPocztowy >> miasto >> numerDomu;
-            if (!id.empty() && !imie.empty() && !nazwisko.empty() && !ulica.empty() && !miasto.empty() && !numerDomu.empty() && !kodPocztowy.empty()) {
+            if (!id.empty() && !imie.empty() && !nazwisko.empty() && !ulica.empty() && !miasto.empty() &&
+                !numerDomu.empty() && !kodPocztowy.empty()) {
                 Adres adres{ulica, numerDomu, miasto, kodPocztowy};
                 czytelnicy.emplace_back(id, imie, nazwisko, adres);
             }
@@ -79,20 +83,17 @@ void RejestrCzytelnikow::wczytajZPliku(const std::string& nazwaPliku) {
         std::cerr << "Błąd otwarcia pliku do odczytu.\n";
     }
 }
-bool RejestrCzytelnikow::czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID) {
-    return czytelnik.pobierzID() == ID;
-}
 void RejestrCzytelnikow::usunCzytelnika(const std::string& ID) {
     for (auto it = czytelnicy.begin(); it != czytelnicy.end(); ++it) {
         if (czytelnikMaTakieSameID(*it, ID)) {
             czytelnicy.erase(it);
             std::cout << "Czytelnik usunięty pomyślnie.\n";
-            return; // petla szukajaca id
+            return;
         }
     }
-
     std::cout << "Czytelnik o podanym ID nie istnieje.\n";
 }
+
 std::string RejestrCzytelnikow::generujID() {
     return "ID" + std::to_string(Czytelnik::licznikID++);
 }
