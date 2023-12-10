@@ -1,7 +1,3 @@
-//
-// Created by xhube on 29.11.2023.
-//
-
 #include "RejestrCzytelnikow.h"
 bool RejestrCzytelnikow::czyCzytelnikZarejestrowany(const std::string& ID) const {
     for (const auto& czytelnik : czytelnicy) {
@@ -83,7 +79,20 @@ void RejestrCzytelnikow::wczytajZPliku(const std::string& nazwaPliku) {
         std::cerr << "Błąd otwarcia pliku do odczytu.\n";
     }
 }
+bool RejestrCzytelnikow::czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID) {
+    return czytelnik.pobierzID() == ID;
+}
+void RejestrCzytelnikow::usunCzytelnika(const std::string& ID) {
+    for (auto it = czytelnicy.begin(); it != czytelnicy.end(); ++it) {
+        if (czytelnikMaTakieSameID(*it, ID)) {
+            czytelnicy.erase(it);
+            std::cout << "Czytelnik usunięty pomyślnie.\n";
+            return;
+        }
+    }
 
+    std::cout << "Czytelnik o podanym ID nie istnieje.\n";
+}
 std::string RejestrCzytelnikow::generujID() {
     return "ID" + std::to_string(Czytelnik::licznikID++);
 }

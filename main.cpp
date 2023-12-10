@@ -43,8 +43,9 @@ int main() {
         std::cout << "1. Zarejestruj czytelnika\n";
         std::cout << "2. Wyświetl szczegóły czytelnika\n";
         std::cout << "3. Wyświetl wszystkich czytelników\n";
-        std::cout << "4. Zapisz dane do pliku\n";
-        std::cout << "5. Wyjdź\n";
+        std::cout << "4. Usuń czytelnika.\n"; // dodalem usuwanie czytelnika
+        std::cout << "5. Zapisz dane do pliku\n";
+        std::cout << "6. Wyjdź\n";
         std::cout << "Wybór: ";
         std::cin >> wybor;
         std::cin.ignore(); // Ignorowanie znaku nowej linii po wczytaniu liczby
@@ -94,17 +95,26 @@ int main() {
             case '3':
                 rejestr.wyswietlWszystkichCzytelnikow();
                 break;
-            case '4':
+            case '4': {
+                std::cout << "Podaj ID czytelnika do usunięcia: ";
+                std::string id;
+                std::getline(std::cin, id);
+                rejestr.usunCzytelnika(id);
                 rejestr.zapiszDoPliku("czytelnicy.txt");
                 Czytelnik::zapiszMaxIDDoPliku("czytelnicy_max_id.txt");
                 break;
+            }
             case '5':
+                rejestr.zapiszDoPliku("czytelnicy.txt");
+                Czytelnik::zapiszMaxIDDoPliku("czytelnicy_max_id.txt");
+                break;
+            case '6':
                 std::cout << "Do widzenia!\n";
                 break;
             default:
                 std::cout << "Niepoprawny wybór.\n";
         }
-    } while (wybor != '5');
+    } while (wybor != '6');
 
 
 }
