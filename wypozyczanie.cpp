@@ -1,31 +1,31 @@
-//
-// Created by basiw on 26.11.2023.
-//
-
+// Wypozyczenie.cpp
 #include "wypozyczanie.h"
-Wypozyczanie::Wypozyczanie(std::string username, std::string data_zwrotu,bool dostepnosc, std::string nazwa_ksiazki) {}
 
-bool Wypozyczanie::czy_dostepna() const {
-    if(dostepnosc==true){
-        return true;
-    }
-    else {
-        return false;
-    }
+Wypozyczenie::Wypozyczenie(const std::string& idCzytelnika, const std::string& idKsiazki)
+        : idCzytelnika(idCzytelnika), idKsiazki(idKsiazki), dataWypozyczenia(0), planowanyZwrot(0) {}
+
+void Wypozyczenie::ustawDaty(time_t dataWypozyczenia, time_t planowanyZwrot) {
+    this->dataWypozyczenia = dataWypozyczenia;
+    this->planowanyZwrot = planowanyZwrot;
 }
 
-void Wypozyczanie::wypozyczKsiazke() {
-    if(dostepnosc=true){
-        //nie wiem jakie struktury wymysli kurwa wojtek
-    }
+std::string Wypozyczenie::pobierzIdCzytelnika() const {
+    return idCzytelnika;
 }
 
-void Wypozyczanie::zwrocKsiazke() {
-    if(dostepnosc=true){
-        return;
-    }
-
+std::string Wypozyczenie::pobierzIdKsiazki() const {
+    return idKsiazki;
 }
 
+time_t Wypozyczenie::pobierzDateWypozyczenia() const {
+    return dataWypozyczenia;
+}
 
+time_t Wypozyczenie::pobierzPlanowanyZwrot() const {
+    return planowanyZwrot;
+}
 
+bool Wypozyczenie::czyWypozyczenieAktualne() const {
+    time_t teraz = std::time(nullptr);
+    return teraz >= dataWypozyczenia && teraz <= planowanyZwrot;
+}

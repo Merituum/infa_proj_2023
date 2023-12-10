@@ -1,32 +1,22 @@
-//
-// Created by basiw on 26.11.2023.
-//
-
-#ifndef INFA_PROJ_2023_WYPOZYCZANIE_H
-#define INFA_PROJ_2023_WYPOZYCZANIE_H
-
-#include <iostream>
+// Wypozyczenie.h
+#pragma once
 #include <string>
+#include <ctime>
 
-using namespace std;
-
-class Wypozyczanie{
-private:
-    string username;
-    string nazwa_ksiazki;
-    string data_zwrotu;
-    bool dostepnosc;
-
+class Wypozyczenie {
 public:
+    Wypozyczenie(const std::string& idCzytelnika, const std::string& idKsiazki);
 
-    Wypozyczanie(string username, string data_zwrotu,bool dostepnosc, string nazwa_ksiazki);
-    void wypozyczKsiazke();
-    void zwrocKsiazke();
+    void ustawDaty(time_t dataWypozyczenia, time_t planowanyZwrot);
+    std::string pobierzIdCzytelnika() const;
+    std::string pobierzIdKsiazki() const;
+    time_t pobierzDateWypozyczenia() const;
+    time_t pobierzPlanowanyZwrot() const;
+    bool czyWypozyczenieAktualne() const;
 
-    bool czy_dostepna() const;
-
-
+private:
+    std::string idCzytelnika;
+    std::string idKsiazki;
+    time_t dataWypozyczenia;
+    time_t planowanyZwrot;
 };
-
-
-#endif //INFA_PROJ_2023_WYPOZYCZANIE_H

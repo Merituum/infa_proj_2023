@@ -2,7 +2,7 @@
 #include "katalog.h"
 using namespace std;
 #include <locale.h>
-#include "gui.h"
+//#include "gui.h"
 #include "RejestrCzytelnikow.h"
 int main() {
     setlocale(LC_CTYPE, "Polish");
