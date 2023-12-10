@@ -16,6 +16,7 @@ public:
     void wyswietlWszystkichCzytelnikow() const;
     void zapiszDoPliku(const std::string& nazwaPliku) const;
     void wczytajZPliku(const std::string& nazwaPliku);
+    void usunCzytelnika(const std::string& ID);
     std::string generujID();
 };
 
