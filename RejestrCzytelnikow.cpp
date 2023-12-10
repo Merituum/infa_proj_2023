@@ -87,7 +87,7 @@ void RejestrCzytelnikow::usunCzytelnika(const std::string& ID) {
         if (czytelnikMaTakieSameID(*it, ID)) {
             czytelnicy.erase(it);
             std::cout << "Czytelnik usunięty pomyślnie.\n";
-            return;
+            return; // petla szukajaca id
         }
     }
 
