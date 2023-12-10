@@ -4,11 +4,14 @@ project(infa_proj_2023)
 set(CMAKE_CXX_STANDARD 17)
 
 #sciezka z bibliotekami
-set(BIBLIOTEKI_DIR ${CMAKE_SOURCE_DIR/biblioteki})
-set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:./biblioteki/pkg-config-lite-0.28-1")
+#set(BIBLIOTEKI_DIR ${CMAKE_SOURCE_DIR/biblioteki})
+#set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:./biblioteki/pkg-config-lite-0.28-1")
 
 find_package(PkgConfig REQUIRED)
-pkg_search_module(GTK3 REQUIRED gtk+-3.0)
+pkg_search_module(GTKMM REQUIRED gtkmm+-3.0)
+include_directories(${GTKMM_INCLUDE_DIRS})
+link_directories(${GTKMM_LIBRARY_DIRS})
+target_link_libraries(infa_proj_2023 ${GTKMM_LIBRARIES})
 
 
 

@@ -1,7 +1,7 @@
 //
 // Created by basiw on 01.12.2023.
 //
-
+#include <gtkmm.h>
 #ifndef INFA_PROJ_2023_GUI_H
 #define INFA_PROJ_2023_GUI_H
 
