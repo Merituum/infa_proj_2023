@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\adres.cpp
+	"Adres.h"
+
+1702236772 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\adres.h
+	<string>
+	<regex>
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\czytelnik.cpp
+	"Czytelnik.h"
+
+1702236772 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\czytelnik.h
+	<iostream>
+	<string>
+	<fstream>
+	"Adres.h"
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\gui.cpp
+	"gui.h"
+
+1702236772 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\gui.h
+
+1702595068 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\katalog.cpp
+	"katalog.h"
+
+1702595068 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\katalog.h
+	"ksiazka.h"
+	<vector>
+
+1702595746 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\ksiazka.h
+	<iostream>
+	<string>
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\ksiazka.cpp
+	"ksiazka.h"
+
+1702594542 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\main.cpp
+	<iostream>
+	"katalog.h"
+	<fstream>
+	<locale.h>
+	"RejestrCzytelnikow.h"
+
+1702236772 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\rejestrczytelnikow.h
+	<vector>
+	<iostream>
+	"Czytelnik.h"
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\mainrej.cpp
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\rejestrczytelnikow.cpp
+	"RejestrCzytelnikow.h"
+
+1702236772 source:d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\wypozyczanie.cpp
+	"wypozyczanie.h"
+
+1702236772 d:\zrobione niektóre zadania analiza,algebra\inf\semestr 3\c++\wersja\infa_proj_2023-main\wypozyczanie.h
+	<string>
+	<ctime>
+
