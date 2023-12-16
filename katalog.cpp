@@ -25,15 +25,15 @@ vector<Ksiazka> Katalog::szukaj_ksiazki(const string &szukana_fraza) const {
 //
 //vector<Ksiazka> znalezione_ksiazki;
 //
-//Tworzy pusty wektor, który bêdzie przechowywaæ znalezione ksi¹¿ki.
+//Tworzy pusty wektor, ktÃ³ry bÄ™dzie przechowywaÄ‡ znalezione ksiÄ…Å¼ki.
 //
-//Pêtla po ksi¹¿kach w katalogu:
+//PÄ™tla po ksiÄ…Å¼kach w katalogu:
 //
 //
 //
 //for (const Ksiazka &ksiazka : ksiazki) {
 //
-//Iteruje przez ka¿dy element w wektorze ksiazki (prawdopodobnie zdefiniowanym w klasie Katalog).
+//Iteruje przez kaÅ¼dy element w wektorze ksiazki (prawdopodobnie zdefiniowanym w klasie Katalog).
 //
 //Warunek wyszukiwania:
 //
@@ -43,20 +43,20 @@ vector<Ksiazka> Katalog::szukaj_ksiazki(const string &szukana_fraza) const {
 //    ksiazka.wez_isbn().find(search_term) != string::npos   ||
 //    ksiazka.wez_rok_publikacji().find(search_term) != string::npos) {
 //
-//Sprawdza, czy podany search_term wystêpuje w tytule, autorze, ISBN lub roku publikacji danej ksi¹¿ki. Jeœli którykolwiek z tych warunków jest spe³niony, ksi¹¿ka jest uznawana za pasuj¹c¹.
+//Sprawdza, czy podany search_term wystÄ™puje w tytule, autorze, ISBN lub roku publikacji danej ksiÄ…Å¼ki. JeÅ›li ktÃ³rykolwiek z tych warunkÃ³w jest speÅ‚niony, ksiÄ…Å¼ka jest uznawana za pasujÄ…cÄ….
 //
-//    ksiazka.wez_tytul(), ksiazka.wez_autor(), ksiazka.wez_isbn(), ksiazka.wez_rok_publikacji() s¹ prawdopodobnie metodami dostêpowymi (getterami), które zwracaj¹ odpowiednie informacje o danej ksi¹¿ce.
+//    ksiazka.wez_tytul(), ksiazka.wez_autor(), ksiazka.wez_isbn(), ksiazka.wez_rok_publikacji() sÄ… prawdopodobnie metodami dostÄ™powymi (getterami), ktÃ³re zwracajÄ… odpowiednie informacje o danej ksiÄ…Å¼ce.
 //
-//Dodawanie do wektora znalezionych ksi¹¿ek:
+//Dodawanie do wektora znalezionych ksiÄ…Å¼ek:
 //
 //
 //znalezione_ksiazki.push_back(ksiazka);
 //
-//Jeœli ksi¹¿ka spe³nia warunki wyszukiwania, dodaje j¹ do wektora znalezione_ksiazki.
+//JeÅ›li ksiÄ…Å¼ka speÅ‚nia warunki wyszukiwania, dodaje jÄ… do wektora znalezione_ksiazki.
 //
 //Zwracanie wyniku:
 //
 //
 //return znalezione_ksiazki;
 //
-//Zwraca wektor zawieraj¹cy wszystkie znalezione ksi¹¿ki.
+//Zwraca wektor zawierajÄ…cy wszystkie znalezione ksiÄ…Å¼ki.

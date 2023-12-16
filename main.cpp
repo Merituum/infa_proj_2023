@@ -1,5 +1,6 @@
 #include <iostream>
 #include "katalog.h"
+#include <fstream>
 using namespace std;
 #include <locale.h>
 //#include "gui.h"
@@ -8,27 +9,19 @@ int main() {
     setlocale(LC_CTYPE, "Polish");
     Katalog katalog;
 
-    Ksiazka ksiazka1("Samobojstwo", "Wojciech Leszczynski", "0123456789", "1997");
-    Ksiazka ksiazka2("Ydostwo", "Wojciech Leszczynski", "0123456780", "1939");
-    Ksiazka ksiazka3("Harry Potter", "J.K. Rowling", "9780545582889", "1997");
-    Ksiazka ksiazka4("W�adca Pier�cieni", "J.R.R. Tolkien", "9788373191723", "1954");
-    Ksiazka ksiazka5("1984", "George Orwell", "9780451524935", "1949");
-
-    katalog.dodaj_ksiazke(ksiazka1);
-    katalog.dodaj_ksiazke(ksiazka2);
-    katalog.dodaj_ksiazke(ksiazka3);
-    katalog.dodaj_ksiazke(ksiazka4);
-    katalog.dodaj_ksiazke(ksiazka5);
-    // Szukanie ksiarzek
-    string szukana_fraza;
-    cin >> szukana_fraza;
-    vector<Ksiazka> znalezione_ksiazki = katalog.szukaj_ksiazki(szukana_fraza);
-
-    // Wyswietlanie znalezionej ksionzki
-    for (const Ksiazka &ksiazka : znalezione_ksiazki) {
-        cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ")" << endl;
+    // Wczytywanie danych z pliku ksiazki.txt
+    ifstream plik("ksiazki.txt");
+    if (plik.is_open()) {
+        string tytul, autor, isbn, rok;
+        while (plik >> tytul >> autor >> isbn >> rok) {
+            Ksiazka ksiazka(tytul, autor, isbn, rok);
+            katalog.dodaj_ksiazke(ksiazka);
+        }
+        plik.close();
+    } else {
+        cout << "Nie można otworzyć pliku ksiazki.txt\n";
+        return 1;
     }
-
 
     //czesc Huberta:
     RejestrCzytelnikow rejestr;
@@ -45,7 +38,8 @@ int main() {
         std::cout << "3. Wyświetl wszystkich czytelników\n";
         std::cout << "4. Usuń czytelnika.\n"; // dodalem usuwanie czytelnika
         std::cout << "5. Zapisz dane do pliku\n";
-        std::cout << "6. Wyjdź\n";
+        std::cout << "6. Szukanie ksiazek\n";
+        std::cout << "7. Wyjdź\n";
         std::cout << "Wybór: ";
         std::cin >> wybor;
         std::cin.ignore(); // Ignorowanie znaku nowej linii po wczytaniu liczby
@@ -108,13 +102,26 @@ int main() {
                 rejestr.zapiszDoPliku("czytelnicy.txt");
                 Czytelnik::zapiszMaxIDDoPliku("czytelnicy_max_id.txt");
                 break;
-            case '6':
+            case '6': {
+                string szukana_fraza;
+                cout << "Podaj frazę do wyszukania: ";
+                cin >> szukana_fraza;
+
+                vector<Ksiazka> znalezione_ksiazki = katalog.szukaj_ksiazki(szukana_fraza);
+
+                // Wyświetlanie znalezionej książki z informacją o wypożyczeniu
+                for (const Ksiazka &ksiazka : znalezione_ksiazki) {
+                    cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ") Rok: " << ksiazka.wez_rok_publikacji() << " - " << (ksiazka.czy_wypozyczona() ? "Wypożyczona" : "Dostępna") << endl;
+                }
+                break;
+            }
+            case '7':
                 std::cout << "Do widzenia!\n";
                 break;
             default:
                 std::cout << "Niepoprawny wybór.\n";
         }
-    } while (wybor != '6');
+    } while (wybor != '7');
 
 
 }
