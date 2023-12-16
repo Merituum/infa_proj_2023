@@ -115,7 +115,12 @@ int main() {
                 }
                 break;
             }
-            case '7':
+
+            case '7':{
+                cout << "Wypożyczenie książek:\n";
+            }
+
+            case '8':
                 std::cout << "Do widzenia!\n";
                 break;
             default:
