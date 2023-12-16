@@ -1,5 +1,9 @@
 #include <iostream>
 #include "katalog.h"
+#include "ksiazka.h"
+#include "Czytelnik.h"
+#include "Adres.h"
+#include "gui.h"
 #include <fstream>
 using namespace std;
 #include <locale.h>

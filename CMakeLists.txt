@@ -2,8 +2,14 @@ cmake_minimum_required(VERSION 3.12)
 project(infa_proj_2023)
 
 set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 # Dodaj pliki źródłowe dołączane do kompilacji
+
+include(FetchContent)
+        #GIT_REPOSITORY https://github.com/SFML/SFML.git
+        #GIT_TAG 2.6.x)
+        #FetchContent_MakeAvailable(SFML)
 set(SOURCE_FILES
         main.cpp
         katalog.cpp
@@ -11,6 +17,8 @@ set(SOURCE_FILES
         RejestrCzytelnikow.cpp
         Adres.cpp
         wypozyczanie.cpp
+        Czytelnik.cpp
+        gui.cpp
 )
 
 # Dodaj pliki nagłówkowe
@@ -20,10 +28,14 @@ set(HEADER_FILES
         RejestrCzytelnikow.h
         Adres.h
         wypozyczanie.h
+        Czytelnik.h
+        gui.h
+
 )
 
-# Dodaj plik wykonywalny
+#target_link_libraries(Fajnanse PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
 add_executable(Infa_proj_2023 ${SOURCE_FILES} ${HEADER_FILES})
+install(TARGETS Infa_proj_2023 DESTINATION bin)
 
 # Jeśli korzystasz z CMake w wersji 3.19 lub nowszej, możesz użyć poniższej komendy
 # target_precompile_headers(NazwaTwojegoProgramu PRIVATE ${HEADER_FILES})
