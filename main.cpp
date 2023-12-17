@@ -122,6 +122,12 @@ int main() {
 
             case '7':{
                 cout << "Wypożyczenie książek:\n";
+                cout << "Podaj tytuł książki do wypożyczenia: ";
+                string tytul;
+                getline(cin, tytul);
+                Wypozyczanie wypozyczanie(katalog.wezKsiazki());  // Używamy referencji do wektora ksiazki w katalogu
+                wypozyczanie.wypozyczKsiazke(tytul);
+                break;
             }
 
             case '8':
