@@ -4,6 +4,7 @@
 #include "Czytelnik.h"
 #include "Adres.h"
 #include "gui.h"
+#include "wypozyczanie.h"
 #include <fstream>
 using namespace std;
 #include <locale.h>
@@ -120,7 +121,7 @@ int main() {
                 break;
             }
 
-            case '7':{
+           /* case '7':{
                 cout << "Wypożyczenie książek:\n";
                 cout << "Podaj tytuł książki do wypożyczenia: ";
                 string tytul;
@@ -129,7 +130,7 @@ int main() {
                 wypozyczanie.wypozyczKsiazke(tytul);
                 break;
             }
-
+            */
             case '8':
                 std::cout << "Do widzenia!\n";
                 break;
