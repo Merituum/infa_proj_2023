@@ -84,8 +84,8 @@ void RejestrCzytelnikow::wczytajZPliku(const std::string& nazwaPliku) {
     }
 }
 void RejestrCzytelnikow::usunCzytelnika(const std::string& ID) {
-    for (auto it = czytelnicy.begin(); it != czytelnicy.end(); ++it) {
-        if (czytelnikMaTakieSameID(*it, ID)) {
+    for (auto it = czytelnicy.begin(); it != czytelnicy.end(); ++it) {      //petla po wszystkich
+        if (czytelnikMaTakieSameID(*it, ID)) {  //jezeli to samo id to usuwamy
             czytelnicy.erase(it);
             std::cout << "Czytelnik usunięty pomyślnie.\n";
             return;
@@ -95,5 +95,5 @@ void RejestrCzytelnikow::usunCzytelnika(const std::string& ID) {
 }
 
 std::string RejestrCzytelnikow::generujID() {
-    return "ID" + std::to_string(Czytelnik::licznikID++);
+    return "ID" + std::to_string(Czytelnik::licznikID++); //do przedrostka ID dodajemy liczbe
 }
