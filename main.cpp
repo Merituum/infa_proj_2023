@@ -1,15 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include "katalog.h"
 #include "ksiazka.h"
 #include "Czytelnik.h"
 #include "Adres.h"
-#include "gui.h"
-#include "wypozyczanie.h"
-#include <fstream>
-using namespace std;
-#include <locale.h>
-//#include "gui.h"
 #include "RejestrCzytelnikow.h"
+#include "wypozyczanie.h"
+
 int main() {
     setlocale(LC_CTYPE, "Polish");
     Katalog katalog;
@@ -28,23 +25,24 @@ int main() {
         return 1;
     }
 
-    //czesc Huberta:
+    //część Huberta:
     RejestrCzytelnikow rejestr;
 
-// Wczytywanie danych z pliku (jeśli dostępny)
+    // Wczytywanie danych z pliku (jeśli dostępny)
     Czytelnik::wczytajMaxIDZPliku("czytelnicy_max_id.txt");
     rejestr.wczytajZPliku("czytelnicy.txt");
 
-// Działania użytkownika
+    // Działania użytkownika
     char wybor;
     do {
         std::cout << "1. Zarejestruj czytelnika\n";
         std::cout << "2. Wyświetl szczegóły czytelnika\n";
         std::cout << "3. Wyświetl wszystkich czytelników\n";
-        std::cout << "4. Usuń czytelnika.\n"; // dodalem usuwanie czytelnika
+        std::cout << "4. Usuń czytelnika.\n";
         std::cout << "5. Zapisz dane do pliku\n";
         std::cout << "6. Szukanie ksiazek\n";
-        std::cout << "7. Wyjdź\n";
+        std::cout << "7. Wypozyczanie ksiazke (WERSJA ALPHA)\n";
+        std::cout << "8. Wyjdź\n";
         std::cout << "Wybór: ";
         std::cin >> wybor;
         std::cin.ignore(); // Ignorowanie znaku nowej linii po wczytaniu liczby
@@ -72,7 +70,7 @@ int main() {
                 std::cout << "Miasto: ";
                 std::getline(std::cin, adres.miasto);
 
-// Wprowadź kod pocztowy i sprawdź jego format
+                // Wprowadź kod pocztowy i sprawdź jego format
                 do {
                     std::cout << "Kod pocztowy (xx-xxx): ";
                     std::getline(std::cin, adres.kodPocztowy);
@@ -121,24 +119,21 @@ int main() {
                 break;
             }
 
-           /* case '7':{
-                cout << "Wypożyczenie książek:\n";
-                cout << "Podaj tytuł książki do wypożyczenia: ";
-                string tytul;
-                getline(cin, tytul);
-                Wypozyczanie wypozyczanie(katalog.wezKsiazki());  // Używamy referencji do wektora ksiazki w katalogu
-                wypozyczanie.wypozyczKsiazke(tytul);
+            case '7': {
+                Wypozyczanie wypozyczanie;
+                cout << "Wypożyczanie książek:\n";
+                cout << "Podaj ID ksiazki do wypozyczenia: ";
+                string id;
+                getline(cin, id);
+                wypozyczanie.wypozyczKsiazke(katalog, id);
                 break;
             }
-            */
+
             case '8':
                 std::cout << "Do widzenia!\n";
                 break;
             default:
                 std::cout << "Niepoprawny wybór.\n";
         }
-    } while (wybor != '7');
-
-
+    } while (wybor != '8');
 }
-
