@@ -119,15 +119,15 @@ int main() {
                 break;
             }
 
-            case '7': {
-                Wypozyczanie wypozyczanie;
-                cout << "Wypożyczanie książek:\n";
-                cout << "Podaj ID ksiazki do wypozyczenia: ";
-                string id;
-                getline(cin, id);
-                wypozyczanie.wypozyczKsiazke(katalog, id);
-                break;
-            }
+            // case '7': {
+            //     Wypozyczanie wypozyczanie;
+            //     cout << "Wypożyczanie książek:\n";
+            //     cout << "Podaj ID ksiazki do wypozyczenia: ";
+            //     string id;
+            //     getline(cin, id);
+            //     wypozyczanie.wypozyczKsiazke(katalog, id);
+            //     break;
+            // }
 
             case '8':
                 std::cout << "Do widzenia!\n";
