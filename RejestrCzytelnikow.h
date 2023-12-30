@@ -7,8 +7,8 @@
 
 class RejestrCzytelnikow {
 private:
-    std::vector<Czytelnik> czytelnicy;
-    static bool czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID);
+    std::vector<Czytelnik> czytelnicy; //to musze zmienic bo vector
+     static bool czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID);
 public:
     bool czyCzytelnikZarejestrowany(const std::string& ID) const;
     void zarejestrujCzytelnika(const Czytelnik& czytelnik);
