@@ -12,6 +12,9 @@ class Czytelnik {
     Adres adres;
 
     public:
+    Czytelnik(){
+    
+    };
     static int licznikID;
 
     Czytelnik(const std::string& ID, const std::string& imie, const std::string& nazwisko, const Adres& adres);
