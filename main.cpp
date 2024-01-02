@@ -6,6 +6,8 @@
 #include "Adres.h"
 #include "RejestrCzytelnikow.h"
 #include "wypozyczanie.h"
+#include "uzytkownik.h"
+#include "bazadanychuzytkownika.h"
 
 int main() {
     setlocale(LC_CTYPE, "Polish");
@@ -31,6 +33,67 @@ int main() {
     // Wczytywanie danych z pliku (jeśli dostępny)
     Czytelnik::wczytajMaxIDZPliku("czytelnicy_max_id.txt");
     rejestr.wczytajZPliku("czytelnicy.txt");
+
+BazaUzytkownikow bazaDanychUzytkownika;
+ bazaDanychUzytkownika.wczytajUzytkownikowZPliku("uzytkownicy.txt");
+std::string opcja;
+std::cout << "Czy chcesz się zalogować (l) czy zarejestrować (r)? ";
+std::cin >> opcja;
+
+std::string nazwaUzytkownika;
+std::string haslo;
+std::string rola;
+if (opcja == "r") {
+    std::string imie;
+    std::string nazwisko;
+    std::string ulica;
+    std::string numerDomu;
+    std::string kodPocztowy;
+    std::string miasto;
+    std::cout << "Podaj imię: ";
+    std::cin >> imie;
+    std::cout << "Podaj nazwisko: ";
+    std::cin >> nazwisko;
+    std::cout << "Podaj ulicę: ";
+    std::cin >> ulica;
+    std::cout << "Podaj numer domu: ";
+    std::cin >> numerDomu;
+    std::cout << "Podaj kod pocztowy: ";
+    std::cin >> kodPocztowy;
+    std::cout << "Podaj miasto: ";
+    std::cin >> miasto;
+    Adres adres(ulica, numerDomu, kodPocztowy, miasto);
+    std::cout << "Podaj nazwę użytkownika: ";
+    std::cin >> nazwaUzytkownika;
+    std::cout << "Podaj hasło: ";
+    std::cin >> haslo;
+    std::cout << "Podaj rolę (czytelnik/bibliotekarz): ";
+    std::cin >> rola;
+    bazaDanychUzytkownika.zarejestrujUzytkownika(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+   // bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
+} else if (opcja == "l") {
+    // Zaloguj użytkownika
+    std::cout << "Podaj nazwę użytkownika: ";
+    std::cin >> nazwaUzytkownika;
+    std::cout << "Podaj hasło: ";
+    std::cin >> haslo;
+
+    Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+    if (uzytkownik != nullptr && uzytkownik->sprawdzHaslo(haslo)) {
+        std::cout << "Logowanie pomyślne.\n";
+        if (uzytkownik->getRola() == "czytelnik") {
+            // Wyświetl menu dla czytelnika
+        } else if (uzytkownik->getRola() == "bibliotekarz") {
+            // Wyświetl menu dla bibliotekarza
+        }
+    } else {
+        std::cout << "Logowanie nieudane.\n";
+    }
+} else {
+    std::cout << "Niepoprawna opcja.\n";
+}
+
+ bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 
     // Działania użytkownika
     char wybor;
