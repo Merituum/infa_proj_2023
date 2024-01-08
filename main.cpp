@@ -13,19 +13,19 @@ int main() {
     setlocale(LC_CTYPE, "Polish");
     Katalog katalog;
 
-    // Wczytywanie danych z pliku ksiazki.txt
-    ifstream plik("ksiazki.txt");
-    if (plik.is_open()) {
-        string tytul, autor, isbn, rok;
-        while (plik >> tytul >> autor >> isbn >> rok) {
-            Ksiazka ksiazka(tytul, autor, isbn, rok);
-            katalog.dodaj_ksiazke(ksiazka);
-        }
-        plik.close();
-    } else {
-        cout << "Nie można otworzyć pliku ksiazki.txt\n";
-        return 1;
-    }
+    // // Wczytywanie danych z pliku ksiazki.txt
+    // ifstream plik("ksiazki.txt");
+    // if (plik.is_open()) {
+    //     string tytul, autor, isbn, rok;
+    //     while (plik >> tytul >> autor >> isbn >> rok) {
+    //         Ksiazka ksiazka(tytul, autor, isbn, rok);
+    //         katalog.dodaj_ksiazke(ksiazka);
+    //     }
+    //     plik.close();
+    // } else {
+    //     cout << "Nie można otworzyć pliku ksiazki.txt\n";
+    //     return 1;
+    // }
 
     //część Huberta:
     RejestrCzytelnikow rejestr;
@@ -168,19 +168,38 @@ if (opcja == "r") {
                 rejestr.zapiszDoPliku("czytelnicy.txt");
                 Czytelnik::zapiszMaxIDDoPliku("czytelnicy_max_id.txt");
                 break;
+
+
             case '6': {
                 string szukana_fraza;
                 cout << "Podaj frazę do wyszukania: ";
                 cin >> szukana_fraza;
 
-                vector<Ksiazka> znalezione_ksiazki = katalog.szukaj_ksiazki(szukana_fraza);
 
-                // Wyświetlanie znalezionej książki z informacją o wypożyczeniu
-                for (const Ksiazka &ksiazka : znalezione_ksiazki) {
-                    cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ") Rok: " << ksiazka.wez_rok_publikacji() << " - " << (ksiazka.czy_wypozyczona() ? "Wypożyczona" : "Dostępna") << endl;
-                }
+  const Ksiazka* const* znalezione_ksiazki_ptr = katalog.szukaj_ksiazki(szukana_fraza);
+
+    // Wyświetlanie znalezionej książki z informacją o wypożyczeniu
+    for (int i = 0; i < katalog.getLiczbaKsiazek(); ++i) {
+        const Ksiazka &ksiazka = *(znalezione_ksiazki_ptr[i]);
+        cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ") Rok: " << ksiazka.wez_rok_publikacji() << " - " << (ksiazka.czy_wypozyczona() ? "Wypożyczona" : "Dostępna") << endl;
+    }
+
+
                 break;
-            }
+            }    
+            // case '6': {
+            //     string szukana_fraza;
+            //     cout << "Podaj frazę do wyszukania: ";
+            //     cin >> szukana_fraza;
+
+            //     vector<Ksiazka> znalezione_ksiazki = katalog.szukaj_ksiazki(szukana_fraza);
+
+            //     // Wyświetlanie znalezionej książki z informacją o wypożyczeniu
+            //     for (const Ksiazka &ksiazka : znalezione_ksiazki) {
+            //         cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ") Rok: " << ksiazka.wez_rok_publikacji() << " - " << (ksiazka.czy_wypozyczona() ? "Wypożyczona" : "Dostępna") << endl;
+            //     }
+            //     break;
+            // }
 
             // case '7': {
             //     Wypozyczanie wypozyczanie;

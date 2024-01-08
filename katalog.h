@@ -1,12 +1,14 @@
 #pragma once
 #include "ksiazka.h"
-#include <vector>
+
 using namespace std;
 class Katalog {
-private:
-    vector<Ksiazka> ksiazki;
-
 public:
+    int getLiczbaKsiazek() const;
     void dodaj_ksiazke(const Ksiazka &ksiazka);
-    vector<Ksiazka> szukaj_ksiazki(const string &szukana_fraza) const;
+    Ksiazka* const* szukaj_ksiazki(const string &szukana_fraza) const;
+private:
+       Ksiazka **ksiazki;
+        int liczbaKsiazek;
+
 };

@@ -12,7 +12,7 @@ private:
 public:
     BazaUzytkownikow();
     ~BazaUzytkownikow();
-    void dodajUzytkownika(const Uzytkownik& uzytkownik);
+    void dodajUzytkownika(const Uzytkownik& nowyUzytkownik);
     Uzytkownik* znajdzUzytkownika(const std::string& nazwaUzytkownika);
     void zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola,
                                 const std::string& imie, const std::string& nazwisko, const Adres& adres);

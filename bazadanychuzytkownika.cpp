@@ -14,17 +14,17 @@ BazaUzytkownikow::~BazaUzytkownikow() {
     delete[] uzytkownicy;
 }
 
-void BazaUzytkownikow::dodajUzytkownika(const Uzytkownik& uzytkownik) {
+void BazaUzytkownikow::dodajUzytkownika(const Uzytkownik& nowyUzytkownik) {
     if (rozmiar == pojemnosc) {
         pojemnosc *= 2;
-        Uzytkownik* nowiUzytkownicy = new Uzytkownik[pojemnosc];
+        Uzytkownik* nowaTablica = new Uzytkownik[pojemnosc];
         for (int i = 0; i < rozmiar; i++) {
-            nowiUzytkownicy[i] = uzytkownicy[i];
+            nowaTablica[i] = uzytkownicy[i];
         }
         delete[] uzytkownicy;
-        uzytkownicy = nowiUzytkownicy;
+        uzytkownicy = nowaTablica;
     }
-    uzytkownicy[rozmiar] = uzytkownik;
+    uzytkownicy[rozmiar] = nowyUzytkownik;
     rozmiar++;
 }
 
@@ -40,10 +40,15 @@ Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const std::string& nazwaUzytkown
 
 void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
-    Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
-    Uzytkownik zhashujHaslo(std::string&haslo);
+    //Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+    //nowyUzytkownik.zahashujHaslo(haslo);
+    Uzytkownik temp;
+    std::string zahashowaneHaslo = temp.zahashujHaslo(haslo);
+    Uzytkownik nowyUzytkownik(nazwaUzytkownika, zahashowaneHaslo, rola, imie, nazwisko, adres);
     dodajUzytkownika(nowyUzytkownik);
     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
+   // dodajUzytkownika(nowyUzytkownik);
+   // std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
                                                    }
 void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
     std::ofstream plik(plikNazwa.c_str());
@@ -63,10 +68,10 @@ void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
              << uzytkownicy[i].getAdres().miasto << " "
              << uzytkownicy[i].getAdres().kodPocztowy << " "
              << uzytkownicy[i].getAdres().numerDomu << std::endl;
-             std::cout<<"Uzytkownik zapisany"<<std::endl;
-             plik.close();
+             
     }
-    //plik.close();
+    std::cout<<"Uzytkownik zapisany"<<std::endl;
+    plik.close();
  
     
 }

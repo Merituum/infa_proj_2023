@@ -3,23 +3,22 @@
 #include "uzytkownik.h"
 
 Uzytkownik::Uzytkownik() {
-    // Definicja domyślnego konstruktora
-    // Tutaj zainicjalizuj swoje zmienne
+ 
     nazwaUzytkownika = "";
     haslo = "";
     rola = "";
     imie = "";
     nazwisko = "";
-    adres = Adres(); // Zakładam, że Adres to klasa i posiada domyślny konstruktor
+    adres = Adres(); // Wywołanie konstruktora domyślnego klasy Adres
 }
 // Uzytkownik.cpp
 Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
            const std::string& imie, const std::string& nazwisko, const Adres& adres)
-    : nazwaUzytkownika(nazwaUzytkownika), haslo(zahashujHaslo(haslo)), rola(rola), 
+    : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(zahashujHaslo(haslo)), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {}
 
 bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
-    return haslo == zahashujHaslo(wprowadzoneHaslo);
+    return zahashowaneHaslo == zahashujHaslo(wprowadzoneHaslo);
 }
 
 std::string Uzytkownik::getRola() {
@@ -37,6 +36,7 @@ std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
             zahashowaneHaslo += c; // Nie przesuwaj znaków niebędących literami
         }
     }
+    std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl;
     return zahashowaneHaslo;
 }
 std::string Uzytkownik::getNazwaUzytkownika() const {
@@ -44,6 +44,8 @@ std::string Uzytkownik::getNazwaUzytkownika() const {
 }
 
 std::string Uzytkownik::getZahashowaneHaslo() const {
-    //std::string zahashowaneHaslo; // Declare the variable here
-    return zahashowaneHaslo;
+   return zahashowaneHaslo;
 }   
+std::string Uzytkownik::getHaslo() const {
+    return zahashowaneHaslo;
+}
