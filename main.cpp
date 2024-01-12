@@ -42,6 +42,7 @@ std::cin >> opcja;
 
 std::string nazwaUzytkownika;
 std::string haslo;
+std::string kodUwierzytelniajacy;
 std::string rola;
 if (opcja == "r") {
     std::string imie;
@@ -58,8 +59,13 @@ if (opcja == "r") {
     std::cin >> ulica;
     std::cout << "Podaj numer domu: ";
     std::cin >> numerDomu;
-    std::cout << "Podaj kod pocztowy: ";
-    std::cin >> kodPocztowy;
+    do{
+        std::cout << "Podaj kod pocztowy: ";
+        std::cin >> kodPocztowy;
+        if(!Adres::czyPoprawnyFormatKoduPocztowego(kodPocztowy)){
+            std::cout << "Niepoprawny format kodu pocztowego. Spróbuj ponownie.\n";
+        }
+    } while(!Adres::czyPoprawnyFormatKoduPocztowego(kodPocztowy));
     std::cout << "Podaj miasto: ";
     std::cin >> miasto;
     Adres adres(ulica, numerDomu, kodPocztowy, miasto);
@@ -67,8 +73,18 @@ if (opcja == "r") {
     std::cin >> nazwaUzytkownika;
     std::cout << "Podaj hasło: ";
     std::cin >> haslo;
+    do{
     std::cout << "Podaj rolę (czytelnik/bibliotekarz): ";
     std::cin >> rola;
+    } while (rola != "czytelnik" && rola != "bibliotekarz");
+    if (rola == "bibliotekarz") {
+    std::cout << "Podaj kod uwierzytelniający dla bibliotekarza: ";
+    std::cin >> kodUwierzytelniajacy;
+    if (kodUwierzytelniajacy != "1111") { 
+        std::cout << "Niepoprawny kod uwierzytelniający. Nie możesz się zarejestrować jako bibliotekarz.\n";   
+        rola="czytelnik"; 
+    }
+}
     bazaDanychUzytkownika.zarejestrujUzytkownika(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
    // bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 } else if (opcja == "l") {
@@ -79,7 +95,9 @@ if (opcja == "r") {
     std::cin >> haslo;
 
     Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
-    if (uzytkownik != nullptr && uzytkownik->sprawdzHaslo(haslo)) {
+    if (uzytkownik != nullptr) {
+    std::string zahashowaneWprowadzoneHaslo = uzytkownik->zahashujHaslo(haslo);
+    if (uzytkownik->sprawdzHaslo(zahashowaneWprowadzoneHaslo)) {
         std::cout << "Logowanie pomyślne.\n";
         if (uzytkownik->getRola() == "czytelnik") {
             // Wyświetl menu dla czytelnika
@@ -89,11 +107,28 @@ if (opcja == "r") {
     } else {
         std::cout << "Logowanie nieudane.\n";
     }
-} else {
-    std::cout << "Niepoprawna opcja.\n";
-}
+    } else {
+    std::cout << "Nie znaleziono użytkownika.\n";
+}  
+    }
 
- bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
+
+//     Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+//     if (uzytkownik != nullptr && uzytkownik->sprawdzHaslo(haslo)) {
+//         std::cout << "Logowanie pomyślne.\n";
+//         if (uzytkownik->getRola() == "czytelnik") {
+//             // Wyświetl menu dla czytelnika
+//         } else if (uzytkownik->getRola() == "bibliotekarz") {
+//             // Wyświetl menu dla bibliotekarza
+//         }
+//     } else {
+//         std::cout << "Logowanie nieudane.\n";
+//     }
+// } else {
+//     std::cout << "Niepoprawna opcja.\n";
+// }
+
+ //bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 
     // Działania użytkownika
     char wybor;
@@ -219,3 +254,4 @@ if (opcja == "r") {
         }
     } while (wybor != '8');
 }
+
