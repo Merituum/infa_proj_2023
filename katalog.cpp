@@ -1,62 +1,55 @@
 #include "katalog.h"
-using namespace std;
-void Katalog::dodaj_ksiazke(const Ksiazka &ksiazka) {
-    ksiazki.push_back(ksiazka);
+
+int Katalog::getLiczbaKsiazek() const {
+    return liczbaKsiazek;
 }
 
-vector<Ksiazka> Katalog::szukaj_ksiazki(const string &szukana_fraza) const {
-    vector<Ksiazka> znalezione_ksiazki;
+void Katalog::wczytajKsiazkiZPliku(const std::string &nazwaPliku) {
+    std::ifstream plik(nazwaPliku);
 
-    for (const Ksiazka &ksiazka : ksiazki) {
-        if (ksiazka.wez_tytul().find(szukana_fraza) != string::npos ||
-            ksiazka.wez_autor().find(szukana_fraza) != string::npos ||
-            ksiazka.wez_isbn().find(szukana_fraza) != string::npos   ||
-            ksiazka.wez_rok_publikacji().find(szukana_fraza) != string::npos) {
-            znalezione_ksiazki.push_back(ksiazka);
+    if (!plik.is_open()) {
+        std::cerr << "B��d otwarcia pliku " << nazwaPliku << std::endl;
+        return;
+    }
+
+    // Determine the actual number of books in the file
+    liczbaKsiazek = 0;
+    std::string tytul, autor, isbn, rokPublikacji;
+    while (plik >> tytul >> autor >> isbn >> rokPublikacji) {
+        liczbaKsiazek++;
+    }
+
+    // Allocate memory for dynamic array
+    ksiazki = new Ksiazka*[liczbaKsiazek];
+
+    // Rewind the file to read data again
+    plik.clear();
+    plik.seekg(0, std::ios::beg);
+
+    // Read book data and allocate objects
+    for (int i = 0; i < liczbaKsiazek; ++i) {
+        plik >> tytul >> autor >> isbn >> rokPublikacji;
+        ksiazki[i] = new Ksiazka(tytul, autor, isbn, rokPublikacji);
+    }
+
+    plik.close();
+}
+
+Ksiazka** Katalog::wyszukajKsiazki(const std::string& fraza, int& liczbaZnalezionych) const {
+    Ksiazka** znalezioneKsiazki = new Ksiazka*[liczbaKsiazek];
+    liczbaZnalezionych = 0;
+
+    for (int i = 0; i < liczbaKsiazek; ++i) {
+        Ksiazka* ksiazka = ksiazki[i];
+
+        // Sprawd� czy fraza pasuje do tytu�u, autora, isbn lub roku publikacji
+        if (ksiazka->wez_tytul().find(fraza) != std::string::npos ||
+            ksiazka->wez_autor().find(fraza) != std::string::npos ||
+            ksiazka->wez_isbn().find(fraza) != std::string::npos ||
+            ksiazka->wez_rok_publikacji().find(fraza) != std::string::npos) {
+            znalezioneKsiazki[liczbaZnalezionych++] = ksiazka;
         }
     }
 
-    return znalezione_ksiazki;
+    return znalezioneKsiazki;
 }
-
-
-//Inicjalizacja wektora:
-//
-//
-//vector<Ksiazka> znalezione_ksiazki;
-//
-//Tworzy pusty wektor, który będzie przechowywać znalezione książki.
-//
-//Pętla po książkach w katalogu:
-//
-//
-//
-//for (const Ksiazka &ksiazka : ksiazki) {
-//
-//Iteruje przez każdy element w wektorze ksiazki (prawdopodobnie zdefiniowanym w klasie Katalog).
-//
-//Warunek wyszukiwania:
-//
-//
-//if (ksiazka.wez_tytul().find(search_term) != string::npos ||
-//    ksiazka.wez_autor().find(search_term) != string::npos ||
-//    ksiazka.wez_isbn().find(search_term) != string::npos   ||
-//    ksiazka.wez_rok_publikacji().find(search_term) != string::npos) {
-//
-//Sprawdza, czy podany search_term występuje w tytule, autorze, ISBN lub roku publikacji danej książki. Jeśli którykolwiek z tych warunków jest spełniony, książka jest uznawana za pasującą.
-//
-//    ksiazka.wez_tytul(), ksiazka.wez_autor(), ksiazka.wez_isbn(), ksiazka.wez_rok_publikacji() są prawdopodobnie metodami dostępowymi (getterami), które zwracają odpowiednie informacje o danej książce.
-//
-//Dodawanie do wektora znalezionych książek:
-//
-//
-//znalezione_ksiazki.push_back(ksiazka);
-//
-//Jeśli książka spełnia warunki wyszukiwania, dodaje ją do wektora znalezione_ksiazki.
-//
-//Zwracanie wyniku:
-//
-//
-//return znalezione_ksiazki;
-//
-//Zwraca wektor zawierający wszystkie znalezione książki.
