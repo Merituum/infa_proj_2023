@@ -6,24 +6,13 @@
 #include "Adres.h"
 #include "RejestrCzytelnikow.h"
 #include "wypozyczanie.h"
+#include "uzytkownik.h"
+#include "bazadanychuzytkownika.h"
 
 int main() {
     setlocale(LC_CTYPE, "Polish");
     Katalog katalog;
-
-    // Wczytywanie danych z pliku ksiazki.txt
-    ifstream plik("ksiazki.txt");
-    if (plik.is_open()) {
-        string tytul, autor, isbn, rok;
-        while (plik >> tytul >> autor >> isbn >> rok) {
-            Ksiazka ksiazka(tytul, autor, isbn, rok);
-            katalog.dodaj_ksiazke(ksiazka);
-        }
-        plik.close();
-    } else {
-        cout << "Nie można otworzyć pliku ksiazki.txt\n";
-        return 1;
-    }
+    katalog.wczytajKsiazkiZPliku("ksiazki.txt");
 
     //część Huberta:
     RejestrCzytelnikow rejestr;
@@ -31,6 +20,67 @@ int main() {
     // Wczytywanie danych z pliku (jeśli dostępny)
     Czytelnik::wczytajMaxIDZPliku("czytelnicy_max_id.txt");
     rejestr.wczytajZPliku("czytelnicy.txt");
+
+BazaUzytkownikow bazaDanychUzytkownika;
+ bazaDanychUzytkownika.wczytajUzytkownikowZPliku("uzytkownicy.txt");
+std::string opcja;
+std::cout << "Czy chcesz się zalogować (l) czy zarejestrować (r)? ";
+std::cin >> opcja;
+
+std::string nazwaUzytkownika;
+std::string haslo;
+std::string rola;
+if (opcja == "r") {
+    std::string imie;
+    std::string nazwisko;
+    std::string ulica;
+    std::string numerDomu;
+    std::string kodPocztowy;
+    std::string miasto;
+    std::cout << "Podaj imię: ";
+    std::cin >> imie;
+    std::cout << "Podaj nazwisko: ";
+    std::cin >> nazwisko;
+    std::cout << "Podaj ulicę: ";
+    std::cin >> ulica;
+    std::cout << "Podaj numer domu: ";
+    std::cin >> numerDomu;
+    std::cout << "Podaj kod pocztowy: ";
+    std::cin >> kodPocztowy;
+    std::cout << "Podaj miasto: ";
+    std::cin >> miasto;
+    Adres adres(ulica, numerDomu, kodPocztowy, miasto);
+    std::cout << "Podaj nazwę użytkownika: ";
+    std::cin >> nazwaUzytkownika;
+    std::cout << "Podaj hasło: ";
+    std::cin >> haslo;
+    std::cout << "Podaj rolę (czytelnik/bibliotekarz): ";
+    std::cin >> rola;
+    bazaDanychUzytkownika.zarejestrujUzytkownika(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+   // bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
+} else if (opcja == "l") {
+    // Zaloguj użytkownika
+    std::cout << "Podaj nazwę użytkownika: ";
+    std::cin >> nazwaUzytkownika;
+    std::cout << "Podaj hasło: ";
+    std::cin >> haslo;
+
+    Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+    if (uzytkownik != nullptr && uzytkownik->sprawdzHaslo(haslo)) {
+        std::cout << "Logowanie pomyślne.\n";
+        if (uzytkownik->getRola() == "czytelnik") {
+            // Wyświetl menu dla czytelnika
+        } else if (uzytkownik->getRola() == "bibliotekarz") {
+            // Wyświetl menu dla bibliotekarza
+        }
+    } else {
+        std::cout << "Logowanie nieudane.\n";
+    }
+} else {
+    std::cout << "Niepoprawna opcja.\n";
+}
+
+ bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 
     // Działania użytkownika
     char wybor;
@@ -105,29 +155,27 @@ int main() {
                 rejestr.zapiszDoPliku("czytelnicy.txt");
                 Czytelnik::zapiszMaxIDDoPliku("czytelnicy_max_id.txt");
                 break;
-            case '6': {
-                string szukana_fraza;
-                cout << "Podaj frazę do wyszukania: ";
-                cin >> szukana_fraza;
 
-                vector<Ksiazka> znalezione_ksiazki = katalog.szukaj_ksiazki(szukana_fraza);
 
-                // Wyświetlanie znalezionej książki z informacją o wypożyczeniu
-                for (const Ksiazka &ksiazka : znalezione_ksiazki) {
-                    cout << ksiazka.wez_tytul() << " autorstwa " << ksiazka.wez_autor() << " (" << ksiazka.wez_isbn() << ") Rok: " << ksiazka.wez_rok_publikacji() << " - " << (ksiazka.czy_wypozyczona() ? "Wypożyczona" : "Dostępna") << endl;
-                }
-                break;
-            }
+case '6': {
+    std::string szukana_fraza;
+    std::cout << "Podaj frazę do wyszukania: ";
+    std::getline(std::cin, szukana_fraza);
 
-            // case '7': {
-            //     Wypozyczanie wypozyczanie;
-            //     cout << "Wypożyczanie książek:\n";
-            //     cout << "Podaj ID ksiazki do wypozyczenia: ";
-            //     string id;
-            //     getline(cin, id);
-            //     wypozyczanie.wypozyczKsiazke(katalog, id);
-            //     break;
-            // }
+    int liczbaZnalezionych;
+    Ksiazka** znalezioneKsiazki = katalog.wyszukajKsiazki(szukana_fraza, liczbaZnalezionych);
+
+    if (liczbaZnalezionych > 0) {
+        std::cout << "Znalezione książki:\n";
+        for (int i = 0; i < liczbaZnalezionych; ++i) {
+            std::cout << i + 1 << ". Tytuł: " << znalezioneKsiazki[i]->wez_tytul() << ", Autor: "
+                      << znalezioneKsiazki[i]->wez_autor() << ", ISBN: " << znalezioneKsiazki[i]->wez_isbn()
+                      << ", Rok publikacji: " << znalezioneKsiazki[i]->wez_rok_publikacji() << "\n";
+        }
+    } else {
+        std::cout << "Brak pasujących książek.\n";
+    }
+}
 
             case '8':
                 std::cout << "Do widzenia!\n";

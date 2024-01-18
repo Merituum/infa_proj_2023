@@ -19,6 +19,8 @@ set(SOURCE_FILES
         wypozyczanie.cpp
         Czytelnik.cpp
         gui.cpp
+        bazadanychuzytkownika.cpp
+        uzytkownik.cpp
 )
 
 # Dodaj pliki nagłówkowe
@@ -30,7 +32,9 @@ set(HEADER_FILES
         wypozyczanie.h
         Czytelnik.h
         gui.h
-
+        uzytkownik.h
+        bazadanychuzytkownika.h
+        
 )
 
 #target_link_libraries(Fajnanse PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
