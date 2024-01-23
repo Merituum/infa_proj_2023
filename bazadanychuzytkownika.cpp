@@ -37,19 +37,39 @@ Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const std::string& nazwaUzytkown
     }
     return nullptr;
 }
-
 void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
-    //Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
-    //nowyUzytkownik.zahashujHaslo(haslo);
-    Uzytkownik temp;
-    std::string zahashowaneHaslo = temp.zahashujHaslo(haslo);
+    std::string zahashowaneHaslo = Uzytkownik::zahashujHaslo(haslo);
     Uzytkownik nowyUzytkownik(nazwaUzytkownika, zahashowaneHaslo, rola, imie, nazwisko, adres);
     dodajUzytkownika(nowyUzytkownik);
+    
     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
-   // dodajUzytkownika(nowyUzytkownik);
-   // std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
-                                                   }
+    zapiszUzytkownikowDoPliku("uzytkownicy.txt");
+}
+
+
+
+// void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
+//                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
+//     Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+//     std::string zahashowaneHaslo = nowyUzytkownik.zahashujHaslo(haslo);
+//     nowyUzytkownik.setHaslo(zahashowaneHaslo);
+//     dodajUzytkownika(nowyUzytkownik);
+//     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
+// }
+
+// void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
+//                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
+//     //Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+//     //nowyUzytkownik.zahashujHaslo(haslo);
+//     Uzytkownik temp;
+//     std::string zahashowaneHaslo = temp.zahashujHaslo(haslo);
+//     Uzytkownik nowyUzytkownik(nazwaUzytkownika, zahashowaneHaslo, rola, imie, nazwisko, adres);
+//     dodajUzytkownika(nowyUzytkownik);
+//     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
+//    // dodajUzytkownika(nowyUzytkownik);
+//    // std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
+                                                   //}
 void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
     std::ofstream plik(plikNazwa.c_str());
     if (!plik.is_open()) {
@@ -75,6 +95,8 @@ void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
  
     
 }
+
+
 void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
     std::ifstream plik(plikNazwa);
     if (plik.is_open()) {
@@ -91,9 +113,9 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
         int liczbaUzytkownikow = 0;
 
         while (!plik.eof()) {
-            std::string nazwaUzytkownika, haslo, rola, imie, nazwisko;
+            std::string nazwaUzytkownika, ZahashowaneHaslo, rola, imie, nazwisko;
             std::string ulica, miasto, kodPocztowy, numerDomu;
-            plik >> nazwaUzytkownika >> haslo >> rola >> imie >> nazwisko
+            plik >> nazwaUzytkownika >> ZahashowaneHaslo >> rola >> imie >> nazwisko
                  >> ulica >> miasto >> kodPocztowy >> numerDomu;
 
             if (!plik.fail() && !nazwaUzytkownika.empty()) {
@@ -108,7 +130,7 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
                     delete[] uzytkownicy;
                     uzytkownicy = nowaTablica;
                 }
-                uzytkownicy[liczbaUzytkownikow++] = Uzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
+                uzytkownicy[liczbaUzytkownikow++] = Uzytkownik(nazwaUzytkownika, ZahashowaneHaslo, rola, imie, nazwisko, adres);
             }
         }
 

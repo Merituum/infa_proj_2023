@@ -14,7 +14,7 @@ class Adres {
     Adres(const std::string& ulica, const std::string& miasto, const std::string& kodPocztowy, const std::string& numerDomu)
     : ulica(ulica), miasto(miasto), kodPocztowy(kodPocztowy), numerDomu(numerDomu) {}
 
-    // Gettery
+    
     std::string getUlica() const { return ulica; }
     std::string getMiasto() const { return miasto; }
     std::string getKodPocztowy() const { return kodPocztowy; }
