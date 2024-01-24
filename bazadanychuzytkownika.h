@@ -4,7 +4,7 @@
 #include "Adres.h"
 #include <fstream>
 
-class BazaUzytkownikow:public Adres {
+class BazaUzytkownikow{
 private:
     Uzytkownik* uzytkownicy;
     int rozmiar;
