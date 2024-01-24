@@ -29,9 +29,7 @@ std::string Uzytkownik::getRola() {
 void Uzytkownik::setHaslo(const std::string& haslo) {
     this->zahashowaneHaslo = haslo;
 }
-std::string Uzytkownik::getsetHaslo(const std::string& haslo) const {
-    return haslo;
-}
+
 std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
     std::string zahashowaneHaslo;
     int przesuniecie = 3; // Przesunięcie dla szyfru Cezara

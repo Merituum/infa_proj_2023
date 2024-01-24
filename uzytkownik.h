@@ -5,7 +5,7 @@
 #ifndef UZYTKOWNIK_H
 #define UZYTKOWNIK_H
 
-class Uzytkownik :public Adres {
+class Uzytkownik  {
 private:
     std::string nazwaUzytkownika;
     std::string haslo;
@@ -38,7 +38,6 @@ public:
     std::string getHaslo() const;
     std::string getZahashowaneHaslo()const;
     void setHaslo(const std::string& haslo);
-    std::string getsetHaslo(const std::string& haslo)  const;
     static std::string zahashujHaslo(const std::string& haslo);
     
 };
