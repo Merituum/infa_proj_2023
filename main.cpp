@@ -72,9 +72,8 @@ if (opcja == "r") {
     if (kodUwierzytelniajacy != "1111") { 
         std::cout << "Niepoprawny kod uwierzytelniający. Nie możesz się zarejestrować jako bibliotekarz.\n";   
         rola="czytelnik"; 
-    }
-    // std::cout << "Podaj rolę (czytelnik/bibliotekarz): ";
-    // std::cin >> rola;
+        }
+}   
     bazaDanychUzytkownika.zarejestrujUzytkownika(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
    // bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 } else if (opcja == "l") {
@@ -84,8 +83,10 @@ if (opcja == "r") {
     std::cout << "Podaj hasło: ";
     std::cin >> haslo;
 
-    Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
-    if (uzytkownik != nullptr && uzytkownik->sprawdzHaslo(haslo)) {
+Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+    if (uzytkownik != nullptr) {
+    std::string zahashowaneWprowadzoneHaslo = uzytkownik->zahashujHaslo(haslo);
+    if (uzytkownik->sprawdzHaslo(zahashowaneWprowadzoneHaslo)) {
         std::cout << "Logowanie pomyślne.\n";
         if (uzytkownik->getRola() == "czytelnik") {
             // Wyświetl menu dla czytelnika
@@ -95,9 +96,10 @@ if (opcja == "r") {
     } else {
         std::cout << "Logowanie nieudane.\n";
     }
-} else {
-    std::cout << "Niepoprawna opcja.\n";
-}
+    } else {
+    std::cout << "Nie znaleziono użytkownika.\n";
+}  
+    }
 
  bazaDanychUzytkownika.zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 
@@ -204,5 +206,4 @@ case '6': {
         }
     } while (wybor != '8');
 }
-    return 0;
-}
+  

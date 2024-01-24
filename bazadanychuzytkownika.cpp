@@ -48,28 +48,6 @@ void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownik
 }
 
 
-
-// void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-//                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
-//     Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
-//     std::string zahashowaneHaslo = nowyUzytkownik.zahashujHaslo(haslo);
-//     nowyUzytkownik.setHaslo(zahashowaneHaslo);
-//     dodajUzytkownika(nowyUzytkownik);
-//     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
-// }
-
-// void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-//                                                    const std::string& imie, const std::string& nazwisko, const Adres& adres) {
-//     //Uzytkownik nowyUzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
-//     //nowyUzytkownik.zahashujHaslo(haslo);
-//     Uzytkownik temp;
-//     std::string zahashowaneHaslo = temp.zahashujHaslo(haslo);
-//     Uzytkownik nowyUzytkownik(nazwaUzytkownika, zahashowaneHaslo, rola, imie, nazwisko, adres);
-//     dodajUzytkownika(nowyUzytkownik);
-//     std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
-//    // dodajUzytkownika(nowyUzytkownik);
-//    // std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
-                                                   //}
 void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
     std::ofstream plik(plikNazwa.c_str());
     if (!plik.is_open()) {
@@ -100,14 +78,13 @@ void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
 void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
     std::ifstream plik(plikNazwa);
     if (plik.is_open()) {
-        // Najpierw sprawdź, czy tablica już istnieje, i ją wyczyść
-        if (uzytkownicy != nullptr) {
+         if (uzytkownicy != nullptr) {
             delete[] uzytkownicy;
             uzytkownicy = nullptr;
             rozmiar = 0;
         }
 
-        // Ustal rozmiar początkowy tablicy
+        // rozmiar początkowy tablicy
         int poczatkowyRozmiar = 10;
         uzytkownicy = new Uzytkownik[poczatkowyRozmiar];
         int liczbaUzytkownikow = 0;
@@ -121,7 +98,7 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
             if (!plik.fail() && !nazwaUzytkownika.empty()) {
                 Adres adres(ulica, miasto, kodPocztowy, numerDomu);
                 if (liczbaUzytkownikow == poczatkowyRozmiar) {
-                    // Zwiększ rozmiar tablicy, gdy jest pełna
+                    // zwiekszenie rozmiaru tablicy gdy jest pelna
                     poczatkowyRozmiar *= 2;
                     Uzytkownik* nowaTablica = new Uzytkownik[poczatkowyRozmiar];
                     for (int i = 0; i < liczbaUzytkownikow; i++) {
@@ -143,31 +120,3 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
 }
 
 
-// void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
-//     std::ifstream plik(plikNazwa);
-//     if(plik.is_open()){
-//         delete[] uzytkownicy;
-//         uzytkownicy = new Uzytkownik[rozmiar];
-//         while(!plik.eof()){
-//             std::string nazwaUzytkownika, haslo, rola, imie, nazwisko;
-//             std::string ulica, miasto, kodPocztowy, numerDomu;
-//             plik >> nazwaUzytkownika >> haslo >> rola >> imie >> nazwisko
-//                 >> ulica >> miasto >> kodPocztowy >> numerDomu;
-//             if(!nazwaUzytkownika.empty() && !haslo.empty() && !rola.empty() && !imie.empty() && !nazwisko.empty() && !ulica.empty() && !miasto.empty() && !kodPocztowy.empty() && !numerDomu.empty()){
-//                 Adres adres(ulica, miasto, kodPocztowy, numerDomu);
-//                 Uzytkownik* nowaTablica=new Uzytkownik[rozmiar+1];
-//                 std::copy(uzytkownicy, uzytkownicy+rozmiar, nowaTablica);
-//                 nowaTablica[rozmiar]=Uzytkownik(nazwaUzytkownika, haslo, rola, imie, nazwisko, adres);
-//                 delete[] uzytkownicy;  //usuniecie starej tablicy
-//                 uzytkownicy=nowaTablica; //przypisanie nowej tablicy
-//                 rozmiar++;
-//                 std::cout<<"Dane uzytkownikow wczytane"<<std::endl;
-//             }
-            
-//     }
-//     plik.close();
-//     }else{
-//         std::cout<<"Nie mozna otworzyc pliku"<<std::endl;
-//     }
-
-// }

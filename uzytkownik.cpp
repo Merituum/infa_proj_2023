@@ -9,30 +9,19 @@ Uzytkownik::Uzytkownik() {
     rola = "";
     imie = "";
     nazwisko = "";
-    adres = Adres(); // Wywołanie konstruktora domyślnego klasy Adres
+    adres = Adres(); // Wywolanie konstruktora domyslnego klasy Adres
 }
-// // Uzytkownik.cpp
-// Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-//            const std::string& imie, const std::string& nazwisko, const Adres& adres)
-//     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
-//       imie(imie), nazwisko(nazwisko), adres(adres) {
-//        this->zahashowaneHaslo = zahashujHaslo(haslo);
-//         std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
-//       }
+
 Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
            const std::string& imie, const std::string& nazwisko, const Adres& adres)
     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {
-        std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
+       // std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
       }
 
 bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
     return zahashowaneHaslo == wprowadzoneHaslo;//zahashujHaslo(wprowadzoneHaslo);
 }
-// bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
-//     std::string zahashowaneWprowadzoneHaslo; //= zahashujHaslo(wprowadzoneHaslo);
-//     return zahashowaneHaslo == zahashowaneWprowadzoneHaslo;
-// }
 
 std::string Uzytkownik::getRola() {
     return rola;
@@ -51,11 +40,13 @@ std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
             zahashowaneHaslo += 'a' + (c - 'a' + przesuniecie) % 26;
         } else if (c >= 'A' && c <= 'Z') {
             zahashowaneHaslo += 'A' + (c - 'A' + przesuniecie) % 26;
+        } else if (c >= '0' && c <= '9') {
+            zahashowaneHaslo += '0' + (c - '0' + przesuniecie) % 10;  
         } else {
-            zahashowaneHaslo += c; // Nie przesuwaj znaków niebędących literami
+            zahashowaneHaslo += c; 
         }
     }
-   std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl;
+   //std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl;
     return zahashowaneHaslo;
 }
 std::string Uzytkownik::getNazwaUzytkownika() const {
