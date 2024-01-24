@@ -16,11 +16,11 @@ Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& h
            const std::string& imie, const std::string& nazwisko, const Adres& adres)
     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {
-       // std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
+       // std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
       }
 
 bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
-    return zahashowaneHaslo == wprowadzoneHaslo;//zahashujHaslo(wprowadzoneHaslo);
+    return zahashowaneHaslo == wprowadzoneHaslo;
 }
 
 std::string Uzytkownik::getRola() {
@@ -44,7 +44,7 @@ std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
             zahashowaneHaslo += c; 
         }
     }
-   //std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl;
+   //std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
     return zahashowaneHaslo;
 }
 std::string Uzytkownik::getNazwaUzytkownika() const {
