@@ -1,23 +1,23 @@
 #pragma once
 #include <string>
 #include <regex>
-
+using namespace std;
 class Adres {
     public:
-    std::string ulica;
-    std::string miasto;
-    std::string kodPocztowy;
-    std::string numerDomu;
+    string ulica;
+    string miasto;
+    string kodPocztowy;
+    string numerDomu;
     Adres();
-    static bool czyPoprawnyFormatKoduPocztowego(const std::string& kodPocztowy);
-    Adres(const std::string& ulica, const std::string& miasto, const std::string& kodPocztowy, const std::string& numerDomu)
+    static bool czyPoprawnyFormatKoduPocztowego(const string& kodPocztowy);
+    Adres(const string& ulica, const string& miasto, const string& kodPocztowy, const string& numerDomu)
     : ulica(ulica), miasto(miasto), kodPocztowy(kodPocztowy), numerDomu(numerDomu) {}
 
     
-    std::string getUlica() const { return ulica; }
-    std::string getMiasto() const { return miasto; }
-    std::string getKodPocztowy() const { return kodPocztowy; }
-    std::string getNumerDomu() const { return numerDomu; }
+    string getUlica() const { return ulica; }
+    string getMiasto() const { return miasto; }
+    string getKodPocztowy() const { return kodPocztowy; }
+    string getNumerDomu() const { return numerDomu; }
 
 };
 

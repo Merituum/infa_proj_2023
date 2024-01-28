@@ -1,11 +1,12 @@
 #include "Adres.h"
+using namespace std;
  Adres::Adres() {
     ulica = "";
     miasto = "";
     kodPocztowy = "";
     numerDomu = "";
 }
-bool Adres::czyPoprawnyFormatKoduPocztowego(const std::string& kodPocztowy) {
-    return std::regex_match(kodPocztowy, std::regex("\\d{2}-\\d{3}"));
+bool Adres::czyPoprawnyFormatKoduPocztowego(const string& kodPocztowy) {
+    return regex_match(kodPocztowy, regex("\\d{2}-\\d{3}"));
 }
 

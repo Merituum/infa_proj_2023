@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Adres.h"
 #include "uzytkownik.h"
+using namespace std;
 
 BazaUzytkownikow::BazaUzytkownikow() : rozmiar(0), pojemnosc(10) {
     uzytkownicy = new Uzytkownik[pojemnosc];
@@ -28,7 +29,7 @@ void BazaUzytkownikow::dodajUzytkownika(const Uzytkownik& nowyUzytkownik) {
     rozmiar++;
 }
 
-Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const std::string& nazwaUzytkownika) {
+Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const string& nazwaUzytkownika) {
     for (int i = 0; i < rozmiar; i++) {
         if (uzytkownicy[i].getNazwaUzytkownika() == nazwaUzytkownika) {
             return &uzytkownicy[i];
@@ -37,21 +38,21 @@ Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const std::string& nazwaUzytkown
     }
     return nullptr;
 }
-void BazaUzytkownikow::zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-                                                   const std::string& imie, const std::string& nazwisko, const Adres& adres) {
-    std::string zahashowaneHaslo = Uzytkownik::zahashujHaslo(haslo);
+void BazaUzytkownikow::zarejestrujUzytkownika(const string& nazwaUzytkownika, const string& haslo, const string& rola, 
+                                                   const string& imie, const string& nazwisko, const Adres& adres) {
+    string zahashowaneHaslo = Uzytkownik::zahashujHaslo(haslo);
     Uzytkownik nowyUzytkownik(nazwaUzytkownika, zahashowaneHaslo, rola, imie, nazwisko, adres);
     dodajUzytkownika(nowyUzytkownik);
     
-    std::cout<<"Uzytkownik zarejestrowany"<<std::endl;
+    cout<<"Uzytkownik zarejestrowany"<<endl;
     zapiszUzytkownikowDoPliku("uzytkownicy.txt");
 }
 
 
-void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
-    std::ofstream plik(plikNazwa.c_str());
+void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const string& plikNazwa) {
+    ofstream plik(plikNazwa.c_str());
     if (!plik.is_open()) {
-        std::cerr << "Nie można otworzyć pliku do zapisu." << std::endl;
+        cerr << "Nie można otworzyć pliku do zapisu." << endl;
         return;
     }
     for (int i = 0; i < rozmiar; ++i) {
@@ -65,18 +66,18 @@ void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const std::string& plikNazwa) {
              << uzytkownicy[i].getAdres().ulica << " "
              << uzytkownicy[i].getAdres().miasto << " "
              << uzytkownicy[i].getAdres().kodPocztowy << " "
-             << uzytkownicy[i].getAdres().numerDomu << std::endl;
+             << uzytkownicy[i].getAdres().numerDomu <<endl;
              
     }
-    std::cout<<"Uzytkownik zapisany"<<std::endl;
+    cout<<"Uzytkownik zapisany"<<endl;
     plik.close();
  
     
 }
 
 
-void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
-    std::ifstream plik(plikNazwa);
+void BazaUzytkownikow::wczytajUzytkownikowZPliku(const string& plikNazwa) {
+    ifstream plik(plikNazwa);
     if (plik.is_open()) {
          if (uzytkownicy != nullptr) {
             delete[] uzytkownicy;
@@ -90,8 +91,8 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
         int liczbaUzytkownikow = 0;
 
         while (!plik.eof()) {
-            std::string nazwaUzytkownika, ZahashowaneHaslo, rola, imie, nazwisko;
-            std::string ulica, miasto, kodPocztowy, numerDomu;
+            string nazwaUzytkownika, ZahashowaneHaslo, rola, imie, nazwisko;
+            string ulica, miasto, kodPocztowy, numerDomu;
             plik >> nazwaUzytkownika >> ZahashowaneHaslo >> rola >> imie >> nazwisko
                  >> ulica >> miasto >> kodPocztowy >> numerDomu;
 
@@ -113,9 +114,9 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const std::string& plikNazwa) {
 
         rozmiar = liczbaUzytkownikow;
         plik.close();
-        std::cout << "Dane uzytkownikow wczytane" << std::endl;
+       cout << "Dane uzytkownikow wczytane" << endl;
     } else {
-        std::cout << "Nie mozna otworzyc pliku" << std::endl;
+        cout << "Nie mozna otworzyc pliku" << endl;
     }
 }
 

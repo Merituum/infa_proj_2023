@@ -2,6 +2,7 @@
 //#include <vector>
 #include <iostream>
 #include "Czytelnik.h"
+using namespace std;
 
 class RejestrCzytelnikow {
 private:
@@ -13,20 +14,20 @@ private:
     void zmienRozmiar(int nowaPojemnosc);
 
     // Prywatna metoda do sprawdzenia, czy czytelnik ma takie same ID
-    //bool czyCzytelnikMaTakieSameID(const std::string& ID) const;
-     bool czytelnikMaTakieSameID(const Czytelnik& czytelnik, const std::string& ID);
+    //bool czyCzytelnikMaTakieSameID(const string& ID) const;
+     bool czytelnikMaTakieSameID(const Czytelnik& czytelnik, const string& ID);
 public:
     RejestrCzytelnikow();   // Konstruktor
     ~RejestrCzytelnikow();  // Destruktor
-    //bool czyCzytelnikMaTakieSameID(const std::string& ID) const;
-    bool czyCzytelnikZarejestrowany(const std::string& ID) const;
+    //bool czyCzytelnikMaTakieSameID(const string& ID) const;
+    bool czyCzytelnikZarejestrowany(const string& ID) const;
     void zarejestrujCzytelnika(const Czytelnik& czytelnik);
-    void wyswietlSzczegolyCzytelnika(const std::string& ID) const;
+    void wyswietlSzczegolyCzytelnika(const string& ID) const;
     void wyswietlWszystkichCzytelnikow() const;
-    void zapiszDoPliku(const std::string& nazwaPliku) const;
-    void wczytajZPliku(const std::string& nazwaPliku);
-    void usunCzytelnika(const std::string& ID);
-    std::string generujID();
+    void zapiszDoPliku(const string& nazwaPliku) const;
+    void wczytajZPliku(const string& nazwaPliku);
+    void usunCzytelnika(const string& ID);
+    string generujID();
 };
     
 

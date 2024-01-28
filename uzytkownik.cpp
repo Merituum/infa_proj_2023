@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "uzytkownik.h"
+using namespace std;
 
 Uzytkownik::Uzytkownik() {
  
@@ -12,26 +13,26 @@ Uzytkownik::Uzytkownik() {
     adres = Adres(); // Wywolanie konstruktora domyslnego klasy Adres
 }
 
-Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-           const std::string& imie, const std::string& nazwisko, const Adres& adres)
+Uzytkownik::Uzytkownik(const string& nazwaUzytkownika, const string& haslo, const string& rola, 
+           const string& imie, const string& nazwisko, const Adres& adres)
     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {
-       // std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
+       // cout << "Zahashowane hasło1: " << zahashowaneHaslo << endl; linijka sluzyla do testow
       }
 
-bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
+bool Uzytkownik::sprawdzHaslo(const string& wprowadzoneHaslo) {
     return zahashowaneHaslo == wprowadzoneHaslo;
 }
 
-std::string Uzytkownik::getRola() {
+string Uzytkownik::getRola() {
     return rola;
 }
-void Uzytkownik::setHaslo(const std::string& haslo) {
+void Uzytkownik::setHaslo(const string& haslo) {
     this->zahashowaneHaslo = haslo;
 }
 
-std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
-    std::string zahashowaneHaslo;
+string Uzytkownik::zahashujHaslo(const string& haslo) {
+    string zahashowaneHaslo;
     int przesuniecie = 3; // Przesunięcie dla szyfru Cezara
     for (char c : haslo) {
         if (c >= 'a' && c <= 'z') {
@@ -44,16 +45,16 @@ std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
             zahashowaneHaslo += c; 
         }
     }
-   //std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
+   //cout << "Zahashowane hasło: " << zahashowaneHaslo << endl; linijka sluzyla do testow
     return zahashowaneHaslo;
 }
-std::string Uzytkownik::getNazwaUzytkownika() const {
+string Uzytkownik::getNazwaUzytkownika() const {
     return nazwaUzytkownika;
 }
 
-std::string Uzytkownik::getZahashowaneHaslo() const {
+string Uzytkownik::getZahashowaneHaslo() const {
    return zahashowaneHaslo;
 }   
-std::string Uzytkownik::getHaslo() const {
+string Uzytkownik::getHaslo() const {
     return haslo;
 }
