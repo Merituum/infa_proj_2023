@@ -134,7 +134,7 @@ Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownik
                                     //wypozyczone.txt
                                     break;
                                 }
-                    }bazaDanychUzytkownika.zapiszWypozyczoneKsiazki();
+                    }//bazaDanychUzytkownika.zapiszWypozyczoneKsiazki();
                     break;
                 }
                 case '3': {
@@ -160,7 +160,7 @@ Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownik
                 }
 
                 plik.close();
-                bazaDanychUzytkownika.zapiszWypozyczoneKsiazki();
+                //bazaDanychUzytkownika.zapiszWypozyczoneKsiazki();
                 cout << "Ksiazka o numerze ISBN " << isbn << " zostala zwrocona." << endl;
                 break; 
             }
