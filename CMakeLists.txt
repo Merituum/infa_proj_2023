@@ -14,11 +14,7 @@ set(SOURCE_FILES
         main.cpp
         katalog.cpp
         ksiazka.cpp
-        RejestrCzytelnikow.cpp
         Adres.cpp
-        wypozyczanie.cpp
-        Czytelnik.cpp
-        gui.cpp
         bazadanychuzytkownika.cpp
         uzytkownik.cpp
 )
@@ -27,11 +23,7 @@ set(SOURCE_FILES
 set(HEADER_FILES
         katalog.h
         ksiazka.h
-        RejestrCzytelnikow.h
         Adres.h
-        wypozyczanie.h
-        Czytelnik.h
-        gui.h
         uzytkownik.h
         bazadanychuzytkownika.h
         

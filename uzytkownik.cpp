@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include "uzytkownik.h"
+#include "ksiazka.h"
 using namespace std;
-
+//Kod Huberta
 Uzytkownik::Uzytkownik() {
  
     nazwaUzytkownika = "";
@@ -10,7 +11,7 @@ Uzytkownik::Uzytkownik() {
     rola = "";
     imie = "";
     nazwisko = "";
-    adres = Adres(); // Wywolanie konstruktora domyslnego klasy Adres
+    adres = Adres(); 
 }
 
 Uzytkownik::Uzytkownik(const string& nazwaUzytkownika, const string& haslo, const string& rola, 
@@ -18,6 +19,9 @@ Uzytkownik::Uzytkownik(const string& nazwaUzytkownika, const string& haslo, cons
     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {
        // cout << "Zahashowane hasło1: " << zahashowaneHaslo << endl; linijka sluzyla do testow
+
+        for(int i=0; i<5; i++)
+            wypozyczone_ksiazki[i] = "";
       }
 
 bool Uzytkownik::sprawdzHaslo(const string& wprowadzoneHaslo) {

@@ -13,7 +13,6 @@ class Adres {
     Adres(const string& ulica, const string& miasto, const string& kodPocztowy, const string& numerDomu)
     : ulica(ulica), miasto(miasto), kodPocztowy(kodPocztowy), numerDomu(numerDomu) {}
 
-    
     string getUlica() const { return ulica; }
     string getMiasto() const { return miasto; }
     string getKodPocztowy() const { return kodPocztowy; }
@@ -21,4 +20,4 @@ class Adres {
 
 };
 
-
+//kod Huberta

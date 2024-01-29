@@ -6,7 +6,7 @@
 #include "Adres.h"
 #include "uzytkownik.h"
 using namespace std;
-
+//kod Huberta
 BazaUzytkownikow::BazaUzytkownikow() : rozmiar(0), pojemnosc(10) {
     uzytkownicy = new Uzytkownik[pojemnosc];
 }
@@ -28,6 +28,25 @@ void BazaUzytkownikow::dodajUzytkownika(const Uzytkownik& nowyUzytkownik) {
     uzytkownicy[rozmiar] = nowyUzytkownik;
     rozmiar++;
 }
+void BazaUzytkownikow::usunUzytkownika(const string& nazwaUzytkownika) {
+    int indeksDoUsuniecia = -1;
+    for (int i = 0; i < rozmiar; ++i) {
+        if (uzytkownicy[i].getNazwaUzytkownika() == nazwaUzytkownika) {
+            indeksDoUsuniecia = i;
+            break;
+        }
+    }
+    if (indeksDoUsuniecia != -1) {
+        for (int i = indeksDoUsuniecia; i < rozmiar - 1; ++i) {
+            uzytkownicy[i] = uzytkownicy[i + 1];
+        }
+        rozmiar--;
+        cout << "Uzytkownik usuniety" << endl;
+        zapiszUzytkownikowDoPliku("uzytkownicy.txt");
+    } else {
+        cout << "Uzytkownik nie istnieje" << endl;
+    }
+}
 
 Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const string& nazwaUzytkownika) {
     for (int i = 0; i < rozmiar; i++) {
@@ -37,6 +56,32 @@ Uzytkownik* BazaUzytkownikow::znajdzUzytkownika(const string& nazwaUzytkownika) 
         }
     }
     return nullptr;
+}
+void BazaUzytkownikow::wyswietlWszystkichUzytkownikow() {
+    for (int i = 0; i < rozmiar; ++i) {
+        cout << "Uzytkownik " << i+1 << ":\n";
+        cout << "Nazwa uzytkownika: " << uzytkownicy[i].getNazwaUzytkownika() << "\n";
+        cout << "Rola: " << uzytkownicy[i].getRola() << "\n";
+        cout << "Imie: " << uzytkownicy[i].getImie() << "\n";
+        cout << "Nazwisko: " << uzytkownicy[i].getNazwisko() << "\n";
+        cout << "------------------------\n";
+    }
+}
+void BazaUzytkownikow::wyswietlSzczegolyUzytkownika(const string& nazwaUzytkownika) {
+    for (int i = 0; i < rozmiar; ++i) {
+        if (uzytkownicy[i].getNazwaUzytkownika() == nazwaUzytkownika) {
+            cout << "Nazwa uzytkownika: " << uzytkownicy[i].getNazwaUzytkownika() << "\n";
+            cout << "Rola: " << uzytkownicy[i].getRola() << "\n";
+            cout << "Imie: " << uzytkownicy[i].getImie() << "\n";
+            cout << "Nazwisko: " << uzytkownicy[i].getNazwisko() << "\n";
+            cout << "Adres: " << uzytkownicy[i].getAdres().ulica << "\n";
+            cout << "Adres: " << uzytkownicy[i].getAdres().miasto << "\n";
+            cout << "Adres: " << uzytkownicy[i].getAdres().kodPocztowy<< "\n";
+            cout << "Adres: " << uzytkownicy[i].getAdres().numerDomu << "\n";
+            return;
+        }
+    }
+    cout << "Nie znaleziono użytkownika o nazwie " << nazwaUzytkownika << ".\n";
 }
 void BazaUzytkownikow::zarejestrujUzytkownika(const string& nazwaUzytkownika, const string& haslo, const string& rola, 
                                                    const string& imie, const string& nazwisko, const Adres& adres) {
@@ -69,12 +114,31 @@ void BazaUzytkownikow::zapiszUzytkownikowDoPliku(const string& plikNazwa) {
              << uzytkownicy[i].getAdres().numerDomu <<endl;
              
     }
-    cout<<"Uzytkownik zapisany"<<endl;
     plik.close();
- 
-    
+     
 }
 
+
+
+//Wypozacznie Bartek
+void BazaUzytkownikow::zapiszWypozyczoneKsiazki()
+{
+    ofstream plik("wypozyczone.txt");
+
+
+    for(int i=0; i<rozmiar; i++)
+    {
+        plik << uzytkownicy[i].getNazwaUzytkownika()<< ":";
+        for(int j=0; j<5; j++)
+            if(uzytkownicy[i].wypozyczone_ksiazki[j] != "")
+                plik << " " << uzytkownicy[i].wypozyczone_ksiazki[j];
+        plik << endl;
+    }
+
+    plik.close();
+}
+
+//Dalsza czesc Huberta
 
 void BazaUzytkownikow::wczytajUzytkownikowZPliku(const string& plikNazwa) {
     ifstream plik(plikNazwa);
@@ -118,6 +182,7 @@ void BazaUzytkownikow::wczytajUzytkownikowZPliku(const string& plikNazwa) {
     } else {
         cout << "Nie mozna otworzyc pliku" << endl;
     }
+
 }
 
 
