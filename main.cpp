@@ -2,10 +2,7 @@
 #include <fstream>
 #include "katalog.h"
 #include "ksiazka.h"
-//#include "Czytelnik.h"
 #include "Adres.h"
-//#include "RejestrCzytelnikow.h"
-#include "wypozyczanie.h"
 #include "uzytkownik.h"
 #include "bazadanychuzytkownika.h"
 using namespace std;
@@ -94,7 +91,9 @@ Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownik
             char wybor;
             do{
             cout << "1. Wyszukaj książkę\n";
-            cout << "2. Wyjdz\n";
+            cout << "2. Wypozycz ksiazke \n";
+            cout << "3. Wyjdz\n";
+            
             cin>>wybor;
             switch(wybor){
                 case '1':{
@@ -118,16 +117,49 @@ Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownik
                     break;
                 }
                 case '2':{
+                    cout << "Podaj isbn ksiazki do wypozyczenia: \n";
+                    string isbn;
+                    cin >> isbn;
+                    Ksiazka* ksiazka;
+                    ksiazka = katalog.znajdzKsiazkePoISBN(isbn);
+                    if(ksiazka->wez_ilosc_w_bibliotece()>0)
+                    {
+                        ksiazka->wypozycz();
+                        Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+                        for(int i=0; i<5; i++)
+                            if(uzytkownik->wypozyczone_ksiazki[i] == "")
+                                {
+                                    uzytkownik->wypozyczone_ksiazki[i] = isbn;
+                                    //wypozyczone.txt
+                                    break;
+                                }
+                    }
+                    break;
+                }
+                case '3': {
+                    //zapis
+                    bazaDanychUzytkownika.zapiszWypozyczoneKsiazki();
                     cout << "Do widzenia!\n";
+                    break;      
+                }
+                case '4': {
+                     Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownika);
+                        for(int i=0; i<5; i++)
+                            if(uzytkownik->wypozyczone_ksiazki[i] != "")
+                                cout << uzytkownik->wypozyczone_ksiazki[i] << endl;
                     break;
                 }
                 default:
-                    cout << "Niepoprawny wybór.\n";
+                    {
+                        cout << "Niepoprawny wybór.\n";
+                        break;
+                    }
             }
                 
 
 
-            }while (wybor != '2');}
+            }while (wybor == '2' || wybor == '1' || wybor == '4');
+            }
             
         } else if (uzytkownik->getRola() == "bibliotekarz") {
             // Wyświetl menu dla bibliotekarza
@@ -249,5 +281,3 @@ Uzytkownik* uzytkownik = bazaDanychUzytkownika.znajdzUzytkownika(nazwaUzytkownik
 //         }
 //     } while (wybor != '8');
 // }
-
-  
