@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "uzytkownik.h"
-
+#include "ksiazka.h"
+using namespace std;
 Uzytkownik::Uzytkownik() {
  
     nazwaUzytkownika = "";
@@ -9,19 +10,32 @@ Uzytkownik::Uzytkownik() {
     rola = "";
     imie = "";
     nazwisko = "";
-    adres = Adres(); // Wywolanie konstruktora domyslnego klasy Adres
+    adres = Adres(); // Wywołanie konstruktora domyślnego klasy Adres
 }
-
+// // Uzytkownik.cpp
+// Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
+//            const std::string& imie, const std::string& nazwisko, const Adres& adres)
+//     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
+//       imie(imie), nazwisko(nazwisko), adres(adres) {
+//        this->zahashowaneHaslo = zahashujHaslo(haslo);
+//         std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
+//       }
 Uzytkownik::Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
            const std::string& imie, const std::string& nazwisko, const Adres& adres)
     : nazwaUzytkownika(nazwaUzytkownika), zahashowaneHaslo(haslo), rola(rola), 
       imie(imie), nazwisko(nazwisko), adres(adres) {
-       // std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
+        std::cout << "Zahashowane hasło1: " << zahashowaneHaslo << std::endl;
+        
+        for(int i=0; i<5; i++)
+            wypozyczone_ksiazki[i] = "";
       }
-
 bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
-    return zahashowaneHaslo == wprowadzoneHaslo;
+    return zahashowaneHaslo == wprowadzoneHaslo;//zahashujHaslo(wprowadzoneHaslo);
 }
+// bool Uzytkownik::sprawdzHaslo(const std::string& wprowadzoneHaslo) {
+//     std::string zahashowaneWprowadzoneHaslo; //= zahashujHaslo(wprowadzoneHaslo);
+//     return zahashowaneHaslo == zahashowaneWprowadzoneHaslo;
+// }
 
 std::string Uzytkownik::getRola() {
     return rola;
@@ -29,7 +43,9 @@ std::string Uzytkownik::getRola() {
 void Uzytkownik::setHaslo(const std::string& haslo) {
     this->zahashowaneHaslo = haslo;
 }
-
+std::string Uzytkownik::getsetHaslo(const std::string& haslo) const {
+    return haslo;
+}
 std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
     std::string zahashowaneHaslo;
     int przesuniecie = 3; // Przesunięcie dla szyfru Cezara
@@ -38,13 +54,11 @@ std::string Uzytkownik::zahashujHaslo(const std::string& haslo) {
             zahashowaneHaslo += 'a' + (c - 'a' + przesuniecie) % 26;
         } else if (c >= 'A' && c <= 'Z') {
             zahashowaneHaslo += 'A' + (c - 'A' + przesuniecie) % 26;
-        } else if (c >= '0' && c <= '9') {
-            zahashowaneHaslo += '0' + (c - '0' + przesuniecie) % 10;  
         } else {
-            zahashowaneHaslo += c; 
+            zahashowaneHaslo += c; // Nie przesuwaj znaków niebędących literami
         }
     }
-   //std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl; linijka sluzyla do testow
+   std::cout << "Zahashowane hasło: " << zahashowaneHaslo << std::endl;
     return zahashowaneHaslo;
 }
 std::string Uzytkownik::getNazwaUzytkownika() const {
@@ -57,3 +71,4 @@ std::string Uzytkownik::getZahashowaneHaslo() const {
 std::string Uzytkownik::getHaslo() const {
     return haslo;
 }
+

@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 #include "Adres.h"
-
+#include "ksiazka.h"
+#pragma once
 #ifndef UZYTKOWNIK_H
 #define UZYTKOWNIK_H
 
-class Uzytkownik  {
+class Uzytkownik :public Adres {
 private:
     std::string nazwaUzytkownika;
     std::string haslo;
@@ -18,6 +19,7 @@ private:
     Adres adres;
 
 public:
+    std::string wypozyczone_ksiazki[5];
     Uzytkownik(const Uzytkownik& other)
     : nazwaUzytkownika(other.nazwaUzytkownika),
       zahashowaneHaslo(other.zahashowaneHaslo), // kopiujemy już zahashowane hasło
@@ -38,8 +40,8 @@ public:
     std::string getHaslo() const;
     std::string getZahashowaneHaslo()const;
     void setHaslo(const std::string& haslo);
+    std::string getsetHaslo(const std::string& haslo)  const;
     static std::string zahashujHaslo(const std::string& haslo);
-    
 };
 
 

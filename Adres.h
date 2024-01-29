@@ -9,6 +9,7 @@ class Adres {
     std::string kodPocztowy;
     std::string numerDomu;
     Adres();
+    //Adres(const std::string& ulica, const std::string& miasto, const std::string& kodPocztowy, const std::string& numerDomu);
     static bool czyPoprawnyFormatKoduPocztowego(const std::string& kodPocztowy);
     Adres(const std::string& ulica, const std::string& miasto, const std::string& kodPocztowy, const std::string& numerDomu)
     : ulica(ulica), miasto(miasto), kodPocztowy(kodPocztowy), numerDomu(numerDomu) {}

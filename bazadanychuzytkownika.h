@@ -3,8 +3,9 @@
 #include "uzytkownik.h"
 #include "Adres.h"
 #include <fstream>
+#pragma once
 
-class BazaUzytkownikow{
+class BazaUzytkownikow:public Adres {
 private:
     Uzytkownik* uzytkownicy;
     int rozmiar;
@@ -19,7 +20,7 @@ public:
 
     void zapiszUzytkownikowDoPliku(const std::string& plikNazwa) ;
     void wczytajUzytkownikowZPliku(const std::string& plikNazwa);
-
+    void zapiszWypozyczoneKsiazki();
 
    
 
