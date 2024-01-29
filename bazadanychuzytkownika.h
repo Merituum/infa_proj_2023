@@ -3,25 +3,27 @@
 #include "uzytkownik.h"
 #include "Adres.h"
 #include <fstream>
-#pragma once
-
-class BazaUzytkownikow:public Adres {
-private:
-    Uzytkownik* uzytkownicy;
-    int rozmiar;
-    int pojemnosc;
+using namespace std;
+//Kod Huberta
+class BazaUzytkownikow{
 public:
     BazaUzytkownikow();
     ~BazaUzytkownikow();
     void dodajUzytkownika(const Uzytkownik& nowyUzytkownik);
-    Uzytkownik* znajdzUzytkownika(const std::string& nazwaUzytkownika);
-    void zarejestrujUzytkownika(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola,
-                                const std::string& imie, const std::string& nazwisko, const Adres& adres);
+    void usunUzytkownika(const string& nazwaUzytkownika);
+    Uzytkownik* znajdzUzytkownika(const string& nazwaUzytkownika);
+    void zarejestrujUzytkownika(const string& nazwaUzytkownika, const string& haslo, const string& rola,
+                                const string& imie, const string& nazwisko, const Adres& adres);
 
-    void zapiszUzytkownikowDoPliku(const std::string& plikNazwa) ;
-    void wczytajUzytkownikowZPliku(const std::string& plikNazwa);
-    void zapiszWypozyczoneKsiazki();
+    void zapiszUzytkownikowDoPliku(const string& plikNazwa) ;
+    void wczytajUzytkownikowZPliku(const string& plikNazwa);
+    void wyswietlWszystkichUzytkownikow();
+    void wyswietlSzczegolyUzytkownika(const string& nazwaUzytkownika);
+    void zapiszWypozyczoneKsiazki();// Kod Bartka
+private:
+    Uzytkownik* uzytkownicy;
+    int rozmiar;
+    int pojemnosc;
 
-   
 
 };

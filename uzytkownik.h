@@ -1,47 +1,45 @@
 #include <iostream>
 #include <string>
 #include "Adres.h"
-#include "ksiazka.h"
-#pragma once
+using namespace std;
 #ifndef UZYTKOWNIK_H
 #define UZYTKOWNIK_H
-
-class Uzytkownik :public Adres {
-private:
-    std::string nazwaUzytkownika;
-    std::string haslo;
-    std::string rola; // "czytelnik" lub "bibliotekarz"
-    std::string imie;
-    std::string nazwisko;
-    std::string zahashowaneHaslo;
-    std::string zaszyfrowaneHaslo;
-    std::string kodUwierzytelniajacy;
-    Adres adres;
-
+//kod Huberta
+class Uzytkownik  {
 public:
-    std::string wypozyczone_ksiazki[5];
+    string wypozyczone_ksiazki[5];
     Uzytkownik(const Uzytkownik& other)
     : nazwaUzytkownika(other.nazwaUzytkownika),
       zahashowaneHaslo(other.zahashowaneHaslo), // kopiujemy już zahashowane hasło
       rola(other.rola),
       imie(other.imie),
       nazwisko(other.nazwisko),
-      adres(other.adres)
-{}
+      adres(other.adres){}
     Uzytkownik();
-    Uzytkownik(const std::string& nazwaUzytkownika, const std::string& haslo, const std::string& rola, 
-               const std::string& imie, const std::string& nazwisko, const Adres& adres);
-    bool sprawdzHaslo(const std::string& wprowadzoneHaslo);
-    std::string getRola();
-    std::string getNazwaUzytkownika() const;
-    std::string getImie() const{return imie;};
-    std::string getNazwisko() const{return nazwisko;};
+    Uzytkownik(const string& nazwaUzytkownika, const string& haslo, const string& rola, 
+               const string& imie, const string& nazwisko, const Adres& adres);
+    bool sprawdzHaslo(const string& wprowadzoneHaslo);
+    string getRola();
+    string getNazwaUzytkownika() const;
+    string getImie() const{return imie;};
+    string getNazwisko() const{return nazwisko;};
     Adres getAdres() const{return adres;};
-    std::string getHaslo() const;
-    std::string getZahashowaneHaslo()const;
-    void setHaslo(const std::string& haslo);
-    std::string getsetHaslo(const std::string& haslo)  const;
-    static std::string zahashujHaslo(const std::string& haslo);
+    string getHaslo() const;
+    string getZahashowaneHaslo()const;
+    void setHaslo(const string& haslo);
+    static string zahashujHaslo(const string& haslo);
+private:
+    string nazwaUzytkownika;
+    string haslo;
+    string rola; // "czytelnik" lub "bibliotekarz"
+    string imie;
+    string nazwisko;
+    string zahashowaneHaslo;
+    string zaszyfrowaneHaslo;
+    string kodUwierzytelniajacy;
+    Adres adres;
+
+    
 };
 
 

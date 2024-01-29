@@ -12,28 +12,23 @@ include(FetchContent)
         #FetchContent_MakeAvailable(SFML)
 set(SOURCE_FILES
         main.cpp
+        katalog.cpp
+        ksiazka.cpp
         Adres.cpp
         bazadanychuzytkownika.cpp
-        katalog.cpp 
-        ksiazka.cpp
         uzytkownik.cpp
 )
 
 # Dodaj pliki nagłówkowe
 set(HEADER_FILES
-       Adres.h 
-       bazadanychuzytkownika.h 
-       katalog.h 
-       ksiazka.h 
-       uzytkownik.h 
+        katalog.h
+        ksiazka.h
+        Adres.h
+        uzytkownik.h
+        bazadanychuzytkownika.h
         
 )
-# katalog.h
-# ksiazka.h
-# Adres.h
-# wypozyczanie.h
-# uzytkownik.h
-# bazadanychuzytkownika.h
+
 #target_link_libraries(Fajnanse PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
 add_executable(Infa_proj_2023 ${SOURCE_FILES} ${HEADER_FILES})
 install(TARGETS Infa_proj_2023 DESTINATION bin)
